@@ -1,0 +1,21 @@
+{
+  "name": "mushaf-zarrar-art-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync-content": "node scripts/sync-content.mjs",
+    "dev": "npm run sync-content && vite",
+    "test": "node --test scripts/*.test.mjs src/*.test.js",
+    "build": "npm run sync-content && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sharp": "0.34.3",
+    "vite": "6.4.2"
+  },
+  "allowScripts": {
+    "sharp@0.34.3": true,
+    "esbuild@0.25.12": true
+  }
+}

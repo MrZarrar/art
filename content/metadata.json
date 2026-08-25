@@ -1,0 +1,202 @@
+{
+  "artworks": {
+    "CardsArt.JPG": {
+      "title": "Dealer's Dilemma",
+      "date": "2024",
+      "medium": "Digital painting",
+      "alt": "Surreal painting of hands reaching through falling playing cards",
+      "order": 1
+    },
+    "ParisArt.jpg": {
+      "title": "Paris After Dark",
+      "medium": "Digital painting",
+      "alt": "The Eiffel Tower illuminated in gold against a black night sky",
+      "order": 2
+    },
+    "MoonknightArt.PNG": {
+      "title": "Moon Knight",
+      "medium": "Digital illustration",
+      "alt": "Moon Knight and surrounding figures rendered in monochrome",
+      "order": 3
+    },
+    "WinterCottageArt.jpg": {
+      "title": "After Hours",
+      "medium": "Digital painting",
+      "alt": "A moonlit cottage in a quiet winter forest",
+      "order": 4
+    },
+    "IcarusArt.PNG": {
+      "title": "Icarus",
+      "medium": "Digital painting",
+      "alt": "A falling figure surrounded by fire and feathers",
+      "order": 5
+    },
+    "PortraitArt.PNG": {
+      "title": "Obscured Portrait",
+      "medium": "Digital portrait",
+      "alt": "Monochrome portrait with a bright horizontal band across the eyes",
+      "order": 6
+    },
+    "KeyholeArt.PNG": {
+      "title": "Through the Keyhole",
+      "medium": "Digital painting",
+      "alt": "A cloaked figure looking through a glowing keyhole into a cosmic scene",
+      "order": 7
+    },
+    "RHULArt.PNG": {
+      "title": "Royal Holloway",
+      "medium": "Digital landscape",
+      "alt": "Royal Holloway campus beneath an aurora and mountain landscape",
+      "order": 8
+    },
+    "LondonArt.jpg": {
+      "title": "London",
+      "medium": "Digital cityscape",
+      "alt": "Tower Bridge and The Shard rendered in muted colour",
+      "order": 9
+    },
+    "ZenitsuArt.jpg": {
+      "title": "Zenitsu",
+      "medium": "Digital illustration",
+      "alt": "Golden anime swordsman holding a glowing blade",
+      "order": 10
+    },
+    "BatmanArt.jpg": {
+      "title": "The Dark Knight",
+      "medium": "Digital illustration",
+      "alt": "Batman standing against a deep blue night sky",
+      "order": 11
+    },
+    "EvilQueenArt.jpg": {
+      "title": "Mirror, Mirror",
+      "medium": "Digital illustration",
+      "alt": "The Evil Queen facing her reflection in an ornate mirror",
+      "order": 12
+    },
+    "DS9Art.JPG": {
+      "title": "DS 9",
+      "medium": "Digital automotive illustration",
+      "alt": "Blue DS 9 saloon in a graphic tricolour setting",
+      "order": 13
+    },
+    "208Art.jpg": {
+      "title": "208",
+      "date": "2024",
+      "medium": "Digital automotive illustration",
+      "alt": "Yellow Peugeot 208 against a pale green background",
+      "order": 14
+    },
+    "FalAbiArt.PNG": {
+      "title": "Fal Abi",
+      "medium": "Digital portrait",
+      "alt": "Formal wedding portrait against a vivid blue and magenta background",
+      "order": 15
+    },
+    "LakeArt.jpg": {
+      "title": "Luminous Lake",
+      "medium": "Digital landscape",
+      "alt": "A glowing blue and violet lake beneath flowering trees",
+      "order": 16
+    },
+    "WarriorArt.jpg": {
+      "title": "Warrior",
+      "medium": "Digital character study",
+      "alt": "Armoured warrior standing against a deep blue background",
+      "order": 17
+    },
+    "FlowersArt.jpg": {
+      "title": "Flowers",
+      "date": "2023",
+      "medium": "Digital landscape",
+      "alt": "A figure holding pink roses in a bright garden landscape",
+      "order": 18
+    },
+    "InceptionArt.jpg": {
+      "title": "Inception",
+      "medium": "Digital illustration",
+      "alt": "A hand drawing a tablet that recursively shows the same drawing",
+      "order": 19
+    },
+    "PerspectiveBuildingsSketch.jpg": {
+      "title": "Perspective Study",
+      "medium": "Pen sketch",
+      "alt": "Perspective sketch of a large urban building complex",
+      "order": 20
+    },
+    "VillageSketch.jpg": {
+      "title": "Village Study",
+      "medium": "Pencil sketch",
+      "alt": "Pencil sketch of a cottage and trees",
+      "order": 21
+    },
+    "KnightSketch.JPG": {
+      "title": "Knight Study",
+      "medium": "Pencil sketch",
+      "alt": "Monochrome sketch of an armoured knight",
+      "order": 22
+    },
+    "GokuProgressArt.jpg": {
+      "title": "Goku: Progress Study",
+      "date": "2018-2019",
+      "medium": "Pencil and coloured pencil",
+      "alt": "Two Goku studies showing artistic progress from 2018 to 2019",
+      "order": 23
+    }
+  },
+  "videos": {
+    "RHULSpeedDraw.mp4": {
+      "title": "Royal Holloway Speed Draw",
+      "medium": "Process film",
+      "artwork": "rhul-art",
+      "width": 1024,
+      "height": 720,
+      "duration": 29.9,
+      "order": 1
+    },
+    "KeyholeSpeedDraw.mp4": {
+      "title": "Through the Keyhole: Speed Draw",
+      "medium": "Process film",
+      "artwork": "keyhole-art",
+      "width": 1024,
+      "height": 720,
+      "duration": 29.93,
+      "order": 2
+    },
+    "BatmanHalfVid.mp4": {
+      "title": "The Dark Knight: Process",
+      "medium": "Vertical edit",
+      "artwork": "batman-art",
+      "width": 720,
+      "height": 1280,
+      "duration": 18.55,
+      "order": 3
+    },
+    "IcarusVid.mp4": {
+      "title": "Icarus: Process",
+      "medium": "Vertical edit",
+      "artwork": "icarus-art",
+      "width": 720,
+      "height": 1280,
+      "duration": 29.33,
+      "order": 4
+    },
+    "MoonknightEyeVid.mp4": {
+      "title": "Moon Knight: Eye Study",
+      "medium": "Vertical edit",
+      "artwork": "moonknight-art",
+      "width": 720,
+      "height": 1280,
+      "duration": 41.57,
+      "order": 5
+    },
+    "MoonknightFaceVid.mp4": {
+      "title": "Moon Knight: Face Study",
+      "medium": "Vertical edit",
+      "artwork": "moonknight-art",
+      "width": 720,
+      "height": 1280,
+      "duration": 25.63,
+      "order": 6
+    }
+  }
+}
