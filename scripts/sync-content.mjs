@@ -4,13 +4,12 @@ import { fileURLToPath } from 'node:url'
 
 import sharp from 'sharp'
 
-import { normaliseEntry } from './content-utils.mjs'
+import { artworkOutputWidths, normaliseEntry } from './content-utils.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const contentRoot = path.join(root, 'content')
 const publicMedia = path.join(root, 'public', 'media')
 const generatedRoot = path.join(root, 'src', 'generated')
-const artworkWidths = [640, 1200, 2000]
 
 const metadata = JSON.parse(
   await readFile(path.join(contentRoot, 'metadata.json'), 'utf8'),
@@ -36,15 +35,7 @@ async function buildArtwork(file) {
   const entry = normaliseEntry(file, curated, 'artwork')
   const image = sharp(file.sourcePath, { failOn: 'none' })
   const info = await image.metadata()
-  const widths = artworkWidths.filter((width) => width < info.width)
-
-  if (!widths.includes(info.width)) {
-    widths.push(info.width)
-  }
-
-  const outputWidths = [...new Set(widths.map((width) => Math.min(width, 2000)))].sort(
-    (a, b) => a - b,
-  )
+  const outputWidths = artworkOutputWidths(info.width)
   const sources = []
 
   for (const width of outputWidths) {
@@ -68,6 +59,7 @@ async function buildArtwork(file) {
     width: info.width,
     height: info.height,
     src: primary.src,
+    inspectionSrc: sources.at(-1).src,
     sources,
   }
 }

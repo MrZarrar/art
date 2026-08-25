@@ -6,6 +6,7 @@ import {
   humaniseFilename,
   normaliseEntry,
 } from './content-utils.mjs'
+import * as contentUtils from './content-utils.mjs'
 
 test('humanises artwork filenames', () => {
   assert.equal(humaniseFilename('MoonknightArt.PNG', 'artwork'), 'Moonknight')
@@ -61,4 +62,10 @@ test('applies curated metadata without losing entry identity', () => {
   assert.equal(entry.date, '2024')
   assert.equal(entry.medium, 'Digital painting')
   assert.equal(entry.order, 1)
+})
+
+test('builds responsive widths with a high-resolution inspection source', () => {
+  assert.deepEqual(contentUtils.artworkOutputWidths?.(9933), [640, 1200, 2000, 3200])
+  assert.deepEqual(contentUtils.artworkOutputWidths?.(1170), [640, 1170])
+  assert.deepEqual(contentUtils.artworkOutputWidths?.(500), [500])
 })

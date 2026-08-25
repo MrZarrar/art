@@ -10,6 +10,7 @@ export const artworks = [
     "width": 2442,
     "height": 2475,
     "src": "media/artworks/cards-art-1200.webp",
+    "inspectionSrc": "media/artworks/cards-art-2442.webp",
     "sources": [
       {
         "src": "media/artworks/cards-art-640.webp",
@@ -22,6 +23,10 @@ export const artworks = [
       {
         "src": "media/artworks/cards-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/cards-art-2442.webp",
+        "width": 2442
       }
     ]
   },
@@ -36,6 +41,7 @@ export const artworks = [
     "width": 3817,
     "height": 7016,
     "src": "media/artworks/paris-art-1200.webp",
+    "inspectionSrc": "media/artworks/paris-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/paris-art-640.webp",
@@ -48,6 +54,10 @@ export const artworks = [
       {
         "src": "media/artworks/paris-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/paris-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -62,6 +72,7 @@ export const artworks = [
     "width": 9933,
     "height": 7016,
     "src": "media/artworks/moonknight-art-1200.webp",
+    "inspectionSrc": "media/artworks/moonknight-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/moonknight-art-640.webp",
@@ -74,6 +85,10 @@ export const artworks = [
       {
         "src": "media/artworks/moonknight-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/moonknight-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -88,6 +103,7 @@ export const artworks = [
     "width": 3791,
     "height": 5000,
     "src": "media/artworks/winter-cottage-art-1200.webp",
+    "inspectionSrc": "media/artworks/winter-cottage-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/winter-cottage-art-640.webp",
@@ -100,6 +116,10 @@ export const artworks = [
       {
         "src": "media/artworks/winter-cottage-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/winter-cottage-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -114,6 +134,7 @@ export const artworks = [
     "width": 7000,
     "height": 5000,
     "src": "media/artworks/icarus-art-1200.webp",
+    "inspectionSrc": "media/artworks/icarus-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/icarus-art-640.webp",
@@ -126,6 +147,10 @@ export const artworks = [
       {
         "src": "media/artworks/icarus-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/icarus-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -140,6 +165,7 @@ export const artworks = [
     "width": 2480,
     "height": 3508,
     "src": "media/artworks/portrait-art-1200.webp",
+    "inspectionSrc": "media/artworks/portrait-art-2480.webp",
     "sources": [
       {
         "src": "media/artworks/portrait-art-640.webp",
@@ -152,6 +178,10 @@ export const artworks = [
       {
         "src": "media/artworks/portrait-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/portrait-art-2480.webp",
+        "width": 2480
       }
     ]
   },
@@ -166,6 +196,7 @@ export const artworks = [
     "width": 4961,
     "height": 3508,
     "src": "media/artworks/keyhole-art-1200.webp",
+    "inspectionSrc": "media/artworks/keyhole-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/keyhole-art-640.webp",
@@ -178,6 +209,10 @@ export const artworks = [
       {
         "src": "media/artworks/keyhole-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/keyhole-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -192,6 +227,7 @@ export const artworks = [
     "width": 4961,
     "height": 3508,
     "src": "media/artworks/rhul-art-1200.webp",
+    "inspectionSrc": "media/artworks/rhul-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/rhul-art-640.webp",
@@ -204,6 +240,10 @@ export const artworks = [
       {
         "src": "media/artworks/rhul-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/rhul-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -218,6 +258,7 @@ export const artworks = [
     "width": 4219,
     "height": 7016,
     "src": "media/artworks/london-art-1200.webp",
+    "inspectionSrc": "media/artworks/london-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/london-art-640.webp",
@@ -230,6 +271,10 @@ export const artworks = [
       {
         "src": "media/artworks/london-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/london-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -244,6 +289,7 @@ export const artworks = [
     "width": 2160,
     "height": 3501,
     "src": "media/artworks/zenitsu-art-1200.webp",
+    "inspectionSrc": "media/artworks/zenitsu-art-2160.webp",
     "sources": [
       {
         "src": "media/artworks/zenitsu-art-640.webp",
@@ -256,6 +302,10 @@ export const artworks = [
       {
         "src": "media/artworks/zenitsu-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/zenitsu-art-2160.webp",
+        "width": 2160
       }
     ]
   },
@@ -270,6 +320,7 @@ export const artworks = [
     "width": 1688,
     "height": 1290,
     "src": "media/artworks/batman-art-1200.webp",
+    "inspectionSrc": "media/artworks/batman-art-1688.webp",
     "sources": [
       {
         "src": "media/artworks/batman-art-640.webp",
@@ -296,6 +347,7 @@ export const artworks = [
     "width": 2550,
     "height": 2645,
     "src": "media/artworks/evil-queen-art-1200.webp",
+    "inspectionSrc": "media/artworks/evil-queen-art-2550.webp",
     "sources": [
       {
         "src": "media/artworks/evil-queen-art-640.webp",
@@ -308,6 +360,10 @@ export const artworks = [
       {
         "src": "media/artworks/evil-queen-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/evil-queen-art-2550.webp",
+        "width": 2550
       }
     ]
   },
@@ -322,6 +378,7 @@ export const artworks = [
     "width": 3507,
     "height": 2478,
     "src": "media/artworks/ds9-art-1200.webp",
+    "inspectionSrc": "media/artworks/ds9-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/ds9-art-640.webp",
@@ -334,6 +391,10 @@ export const artworks = [
       {
         "src": "media/artworks/ds9-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/ds9-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -348,6 +409,7 @@ export const artworks = [
     "width": 1170,
     "height": 837,
     "src": "media/artworks/208-art-1170.webp",
+    "inspectionSrc": "media/artworks/208-art-1170.webp",
     "sources": [
       {
         "src": "media/artworks/208-art-640.webp",
@@ -370,6 +432,7 @@ export const artworks = [
     "width": 5000,
     "height": 7000,
     "src": "media/artworks/fal-abi-art-1200.webp",
+    "inspectionSrc": "media/artworks/fal-abi-art-3200.webp",
     "sources": [
       {
         "src": "media/artworks/fal-abi-art-640.webp",
@@ -382,6 +445,10 @@ export const artworks = [
       {
         "src": "media/artworks/fal-abi-art-2000.webp",
         "width": 2000
+      },
+      {
+        "src": "media/artworks/fal-abi-art-3200.webp",
+        "width": 3200
       }
     ]
   },
@@ -396,6 +463,7 @@ export const artworks = [
     "width": 1170,
     "height": 1176,
     "src": "media/artworks/lake-art-1170.webp",
+    "inspectionSrc": "media/artworks/lake-art-1170.webp",
     "sources": [
       {
         "src": "media/artworks/lake-art-640.webp",
@@ -418,6 +486,7 @@ export const artworks = [
     "width": 1170,
     "height": 869,
     "src": "media/artworks/warrior-art-1170.webp",
+    "inspectionSrc": "media/artworks/warrior-art-1170.webp",
     "sources": [
       {
         "src": "media/artworks/warrior-art-640.webp",
@@ -440,6 +509,7 @@ export const artworks = [
     "width": 1170,
     "height": 824,
     "src": "media/artworks/flowers-art-1170.webp",
+    "inspectionSrc": "media/artworks/flowers-art-1170.webp",
     "sources": [
       {
         "src": "media/artworks/flowers-art-640.webp",
@@ -462,6 +532,7 @@ export const artworks = [
     "width": 1170,
     "height": 819,
     "src": "media/artworks/inception-art-1170.webp",
+    "inspectionSrc": "media/artworks/inception-art-1170.webp",
     "sources": [
       {
         "src": "media/artworks/inception-art-640.webp",
@@ -484,6 +555,7 @@ export const artworks = [
     "width": 1170,
     "height": 762,
     "src": "media/artworks/perspective-buildings-sketch-1170.webp",
+    "inspectionSrc": "media/artworks/perspective-buildings-sketch-1170.webp",
     "sources": [
       {
         "src": "media/artworks/perspective-buildings-sketch-640.webp",
@@ -506,6 +578,7 @@ export const artworks = [
     "width": 1170,
     "height": 818,
     "src": "media/artworks/village-sketch-1170.webp",
+    "inspectionSrc": "media/artworks/village-sketch-1170.webp",
     "sources": [
       {
         "src": "media/artworks/village-sketch-640.webp",
@@ -528,6 +601,7 @@ export const artworks = [
     "width": 923,
     "height": 1260,
     "src": "media/artworks/knight-sketch-923.webp",
+    "inspectionSrc": "media/artworks/knight-sketch-923.webp",
     "sources": [
       {
         "src": "media/artworks/knight-sketch-640.webp",
@@ -550,6 +624,7 @@ export const artworks = [
     "width": 1125,
     "height": 1116,
     "src": "media/artworks/goku-progress-art-1125.webp",
+    "inspectionSrc": "media/artworks/goku-progress-art-1125.webp",
     "sources": [
       {
         "src": "media/artworks/goku-progress-art-640.webp",

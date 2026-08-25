@@ -5,6 +5,14 @@ const TRAILING_LABELS = {
   video: /(?:Vid|Video)$/i,
 }
 
+const RESPONSIVE_ARTWORK_WIDTHS = [640, 1200, 2000, 3200]
+
+export function artworkOutputWidths(sourceWidth) {
+  const widths = RESPONSIVE_ARTWORK_WIDTHS.filter((width) => width < sourceWidth)
+  widths.push(Math.min(sourceWidth, RESPONSIVE_ARTWORK_WIDTHS.at(-1)))
+  return [...new Set(widths)].sort((a, b) => a - b)
+}
+
 export function stripExtension(filename) {
   return filename.slice(0, filename.length - path.extname(filename).length)
 }
