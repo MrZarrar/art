@@ -4,6 +4,7 @@ import { artworks, videos } from './generated/gallery.js'
 import { createExhibitionDialog } from './exhibition-dialog.js'
 import { createGalleryController } from './gallery-controller.js'
 import { createGalleryState } from './gallery-state.js'
+import { createVideoRoom } from './video-room.js'
 
 const padNumber = (value) => String(value).padStart(2, '0')
 const srcset = (artwork) => artwork.sources
@@ -230,6 +231,8 @@ const exhibitionDialog = createExhibitionDialog({
   onSelect: (index) => galleryController.select(index),
 })
 
+const videoRoom = createVideoRoom([...document.querySelectorAll('.video-work video')])
+
 document.querySelectorAll('.exhibition-open').forEach((button) => {
   button.addEventListener('click', () => {
     exhibitionDialog.open(Number(button.dataset.exhibitionIndex), button)
@@ -271,4 +274,4 @@ const roomObserver = new IntersectionObserver((entries) => {
 
 roomSections.forEach((room) => roomObserver.observe(room))
 
-window.exhibition = { artworks, videos, state, galleryController, exhibitionDialog }
+window.exhibition = { artworks, videos, state, galleryController, exhibitionDialog, videoRoom }
