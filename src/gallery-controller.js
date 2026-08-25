@@ -13,6 +13,14 @@ export function nearestItemIndex(itemCentres, railCentre) {
   }, { index: 0, distance: Number.POSITIVE_INFINITY }).index
 }
 
+export function nearestScrollIndex(items, scrollLeft, railWidth) {
+  const railCentre = scrollLeft + railWidth / 2
+  return nearestItemIndex(
+    items.map((item) => item.offsetLeft + item.offsetWidth / 2),
+    railCentre,
+  )
+}
+
 export function wrapGalleryIndex(index, count) {
   return ((index % count) + count) % count
 }
@@ -44,6 +52,7 @@ export function createGalleryController({
   let wheelResetTimer = 0
   let wheelUnlockTimer = 0
   let wheelLocked = false
+  let settleTimer = 0
 
   function targetScrollLeft(index) {
     const item = items[index]
@@ -104,19 +113,22 @@ export function createGalleryController({
   }
 
   function nearestIndexFromRail() {
-    const railRect = rail.getBoundingClientRect()
-    const centres = items.map((item) => {
-      const rect = item.getBoundingClientRect()
-      return rect.left + rect.width / 2
-    })
-    return nearestItemIndex(centres, railRect.left + railRect.width / 2)
+    return nearestScrollIndex(items, rail.scrollLeft, rail.clientWidth)
   }
 
   function settleToNearest() {
     const index = nearestIndexFromRail()
     rail.classList.remove('is-dragging')
     state.select(index)
-    scrollToIndex(index)
+    const target = targetScrollLeft(index)
+    if (Math.abs(rail.scrollLeft - target) > 1) scrollToIndex(index)
+  }
+
+  function scheduleSettle() {
+    window.clearTimeout(settleTimer)
+    settleTimer = window.setTimeout(() => {
+      if (!pointerStart) settleToNearest()
+    }, 180)
   }
 
   function selectionFromScroll() {
@@ -138,7 +150,11 @@ export function createGalleryController({
 
   previousButton.addEventListener('click', () => selectAndScroll(state.getIndex() - 1))
   nextButton.addEventListener('click', () => selectAndScroll(state.getIndex() + 1))
-  rail.addEventListener('scroll', selectionFromScroll, { passive: true })
+  rail.addEventListener('scroll', () => {
+    selectionFromScroll()
+    scheduleSettle()
+  }, { passive: true })
+  rail.addEventListener('scrollend', settleToNearest)
 
   rail.addEventListener('wheel', (event) => {
     const delta = wheelDelta(event, rail.clientWidth)
@@ -229,6 +245,7 @@ export function createGalleryController({
       cancelAnimationFrame(resizeFrame)
       window.clearTimeout(wheelResetTimer)
       window.clearTimeout(wheelUnlockTimer)
+      window.clearTimeout(settleTimer)
       window.removeEventListener('resize', alignAfterResize)
     },
   }

@@ -3,6 +3,7 @@ import test from 'node:test'
 
 import {
   nearestItemIndex,
+  nearestScrollIndex,
   shouldHandleGalleryArrowKey,
   wheelDelta,
   wrapGalleryIndex,
@@ -21,6 +22,11 @@ test('normalises wheel line and page units into pixels', () => {
 test('chooses the item nearest to the rail centre', () => {
   assert.equal(nearestItemIndex([80, 300, 520], 310), 1)
   assert.equal(nearestItemIndex([80, 300, 520], 500), 2)
+})
+
+test('chooses the item nearest to the rail centre from layout positions', () => {
+  assert.equal(nearestScrollIndex([{ offsetLeft: 40, offsetWidth: 300 }, { offsetLeft: 360, offsetWidth: 300 }], 0, 375), 0)
+  assert.equal(nearestScrollIndex([{ offsetLeft: 40, offsetWidth: 300 }, { offsetLeft: 360, offsetWidth: 300 }], 320, 375), 1)
 })
 
 test('returns the first item for an empty centre list', () => {
