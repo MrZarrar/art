@@ -1,6 +1,7 @@
 import './styles.css'
 
 import { artworks, videos } from './generated/gallery.js'
+import { createExhibitionDialog } from './exhibition-dialog.js'
 import { createGalleryController } from './gallery-controller.js'
 import { createGalleryState } from './gallery-state.js'
 
@@ -223,6 +224,18 @@ const galleryController = createGalleryController({
   roomCount: document.querySelector('.room-heading > span'),
 })
 
+const exhibitionDialog = createExhibitionDialog({
+  dialog: document.querySelector('.artwork-dialog'),
+  artworks,
+  onSelect: (index) => galleryController.select(index),
+})
+
+document.querySelectorAll('.exhibition-open').forEach((button) => {
+  button.addEventListener('click', () => {
+    exhibitionDialog.open(Number(button.dataset.exhibitionIndex), button)
+  })
+})
+
 const menuButton = document.querySelector('.menu-toggle')
 const roomNavigation = document.querySelector('.room-navigation')
 
@@ -258,4 +271,4 @@ const roomObserver = new IntersectionObserver((entries) => {
 
 roomSections.forEach((room) => roomObserver.observe(room))
 
-window.exhibition = { artworks, videos, state, galleryController }
+window.exhibition = { artworks, videos, state, galleryController, exhibitionDialog }
