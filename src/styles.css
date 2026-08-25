@@ -31,7 +31,7 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: hidden;
-  background: var(--concrete) url("./assets/concrete-wall.png") center top / 1024px auto repeat;
+  background: var(--concrete) url("./assets/concrete-wall.webp") center top / 1024px auto repeat;
 }
 
 body,
@@ -206,7 +206,6 @@ main {
 
 .exhibition-room {
   position: relative;
-  min-height: 100svh;
   padding-top: calc(var(--header-height) + 16px);
   overflow: hidden;
 }
@@ -280,7 +279,7 @@ main {
 .gallery-stage {
   position: relative;
   z-index: 2;
-  margin-top: 55px;
+  margin-top: 25px;
   border-bottom: 12px solid var(--rail);
 }
 
@@ -288,7 +287,7 @@ main {
   display: flex;
   gap: clamp(22px, 4vw, 64px);
   align-items: center;
-  min-height: clamp(460px, 64vh, 690px);
+  min-height: clamp(400px, 41vh, 440px);
   margin: 0;
   padding: 24px calc((100% - min(62vw, 770px)) / 2);
   overflow-x: auto;
@@ -316,9 +315,9 @@ main {
   flex: 0 0 min(62vw, 770px);
   scroll-snap-align: center;
   scroll-snap-stop: always;
-  opacity: 0.54;
-  filter: saturate(0.55) contrast(0.9);
-  transform: translateY(20px) scale(0.88);
+  opacity: 0.72;
+  filter: saturate(0.78) contrast(0.94);
+  transform: translateY(18px) scale(0.9);
   transform-origin: center;
   transition:
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -331,6 +330,14 @@ main {
   opacity: 1;
   filter: none;
   transform: translateY(0) scale(1);
+}
+
+.artwork-slide.is-before .artwork-mount {
+  justify-content: flex-end;
+}
+
+.artwork-slide.is-after .artwork-mount {
+  justify-content: flex-start;
 }
 
 .artwork-select {
@@ -347,7 +354,7 @@ main {
 .artwork-mount {
   display: flex;
   width: 100%;
-  min-height: clamp(390px, 55vh, 585px);
+  min-height: clamp(350px, 36vh, 390px);
   align-items: center;
   justify-content: center;
   padding: clamp(16px, 2.5vw, 34px);
@@ -361,7 +368,7 @@ main {
 
 .artwork-mount img {
   width: auto;
-  max-height: clamp(350px, 50vh, 535px);
+  max-height: clamp(320px, 33vh, 360px);
   object-fit: contain;
   box-shadow: 0 12px 24px rgb(0 0 0 / 25%);
 }
@@ -853,7 +860,25 @@ main {
   }
 
   .selected-metadata {
-    display: none;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    min-height: 92px;
+    margin: 0 var(--page-gutter);
+    padding: 17px 0;
+    background: transparent;
+    border-left: 0;
+    text-align: center;
+  }
+
+  .selected-metadata h2 {
+    margin-top: 7px;
+    font-size: 1rem;
+  }
+
+  .selected-metadata h2 + p {
+    margin-top: 7px;
   }
 
   .video-work:first-child,
@@ -919,22 +944,22 @@ main {
   }
 
   .artwork-rail {
-    gap: 14px;
-    min-height: 420px;
-    padding: 18px calc((100% - 78vw) / 2) 22px;
+    gap: 8px;
+    min-height: 350px;
+    padding: 18px calc((100% - 72vw) / 2) 22px;
   }
 
   .artwork-slide {
-    flex-basis: 78vw;
+    flex-basis: 72vw;
   }
 
   .artwork-mount {
-    min-height: 370px;
-    padding: 12px;
+    min-height: 310px;
+    padding: 8px;
   }
 
   .artwork-mount img {
-    max-height: 340px;
+    max-height: 286px;
   }
 
   .gallery-controls {

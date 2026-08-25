@@ -11,6 +11,10 @@ export function nearestItemIndex(itemCentres, railCentre) {
   }, { index: 0, distance: Number.POSITIVE_INFINITY }).index
 }
 
+export function wrapGalleryIndex(index, count) {
+  return ((index % count) + count) % count
+}
+
 export function createGalleryController({
   section,
   rail,
@@ -50,13 +54,15 @@ export function createGalleryController({
     items.forEach((item, itemIndex) => {
       const selected = itemIndex === index
       item.classList.toggle('is-selected', selected)
+      item.classList.toggle('is-before', itemIndex < index)
+      item.classList.toggle('is-after', itemIndex > index)
       const button = item.querySelector('.artwork-select')
       if (selected) button.setAttribute('aria-current', 'true')
       else button.removeAttribute('aria-current')
     })
 
-    previousButton.disabled = index === 0
-    nextButton.disabled = index === items.length - 1
+    previousButton.disabled = false
+    nextButton.disabled = false
     section.style.setProperty('--rail-progress', index / Math.max(1, items.length - 1))
     setMetadata(index)
 
@@ -70,7 +76,7 @@ export function createGalleryController({
   }
 
   function selectAndScroll(index) {
-    state.select(index)
+    state.select(wrapGalleryIndex(index, items.length))
     scrollToIndex(state.getIndex())
   }
 

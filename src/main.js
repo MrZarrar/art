@@ -48,6 +48,23 @@ function renderArtworkSlide(artwork, index) {
   `
 }
 
+function renderArtworkClone(artwork, direction) {
+  return `
+    <li class="artwork-slide artwork-slide--clone is-${direction === 'previous' ? 'before' : 'after'}" aria-hidden="true">
+      <button
+        class="artwork-select"
+        type="button"
+        tabindex="-1"
+        data-boundary-preview="${direction}"
+      >
+        <span class="artwork-mount">
+          ${artworkPicture(artwork, { eager: true })}
+        </span>
+      </button>
+    </li>
+  `
+}
+
 function renderExhibitionItem(artwork, index) {
   return `
     <li class="exhibition-item">
@@ -132,7 +149,9 @@ function renderApp() {
 
         <div class="gallery-stage">
           <ol class="artwork-rail" aria-label="Artwork carousel">
+            ${renderArtworkClone(artworks.at(-1), 'previous')}
             ${artworks.map(renderArtworkSlide).join('')}
+            ${renderArtworkClone(artworks[0], 'next')}
           </ol>
 
           <aside class="selected-metadata" aria-live="off">
@@ -143,7 +162,7 @@ function renderApp() {
         </div>
 
         <div class="gallery-controls">
-          <button type="button" data-gallery-previous disabled>Previous</button>
+          <button type="button" data-gallery-previous>Previous</button>
           <p><span class="desktop-instruction">Scroll / drag / arrow keys</span><span class="mobile-instruction">Swipe / drag</span></p>
           <button type="button" data-gallery-next>Next</button>
         </div>
@@ -208,6 +227,8 @@ function renderApp() {
 
 renderApp()
 
+document.querySelector('.videos-room').after(document.querySelector('.full-exhibition'))
+
 const hashArtworkId = new URLSearchParams(window.location.hash.slice(1)).get('artwork')
 const hashArtworkIndex = artworks.findIndex((artwork) => artwork.id === hashArtworkId)
 const state = createGalleryState(artworks.length, Math.max(0, hashArtworkIndex))
@@ -215,7 +236,7 @@ const section = document.querySelector('.exhibition-room')
 const galleryController = createGalleryController({
   section,
   rail: document.querySelector('.artwork-rail'),
-  items: [...document.querySelectorAll('.artwork-slide')],
+  items: [...document.querySelectorAll('.artwork-slide:not(.artwork-slide--clone)')],
   artworks,
   state,
   previousButton: document.querySelector('[data-gallery-previous]'),
@@ -223,6 +244,14 @@ const galleryController = createGalleryController({
   liveRegion: document.querySelector('.selection-announcement'),
   metadata: document.querySelector('.selected-metadata'),
   roomCount: document.querySelector('.room-heading > span'),
+})
+
+document.querySelector('[data-boundary-preview="previous"]').addEventListener('click', () => {
+  galleryController.select(artworks.length - 1)
+})
+
+document.querySelector('[data-boundary-preview="next"]').addEventListener('click', () => {
+  galleryController.select(0)
 })
 
 const exhibitionDialog = createExhibitionDialog({
