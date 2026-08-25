@@ -78,14 +78,14 @@ The `artwork` value is the lower-case ID generated from the artwork filename. Ru
 
 ## Change the display order
 
-Artwork and video order are controlled separately in `content/metadata.json`.
+The Featured Works carousel and Full Exhibition use different rules. Featured Works follows artwork `order` values, while Full Exhibition sorts artwork by newest year first, places undated work last, and uses `order` to break ties. Videos use their own `order` values.
 
 1. Find the file inside the `artworks` or `videos` object.
-2. Change its `order` number. Lower numbers appear first.
-3. Keep the numbers unique within that section.
+2. Change its `order` number where the relevant room uses manual ordering.
+3. Set `featured` to `true` or `false` to change whether an artwork appears in Room 01.
 4. Run `npm run sync-content` to rebuild the catalogue.
 
-For example, setting `ParisArt.jpg` to `order: 1` makes it the first artwork. Setting `IcarusVid.mp4` to `order: 1` makes it the first video without changing the artwork order.
+For example, setting `ParisArt.jpg` to `featured: true` adds it to Featured Works. Setting `IcarusVid.mp4` to `order: 1` makes it the first video without changing the artwork order.
 
 When the development server is already open, run the sync command in another terminal. The page refreshes with the new order. Commit the metadata and generated catalogue before pushing to GitHub Pages.
 

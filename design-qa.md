@@ -129,10 +129,11 @@ The earlier QA passed the flat gallery structure, but the user's subsequent real
 ### Revision pass 5
 
 - Added data-driven featured artwork metadata so Room 01 only displays selected works.
-- Reframed the navigation as Room 01 Selected Works, Room 02 Videos, and Room 03 Full Exhibition.
+- Reframed the navigation as Room 01 Featured Works, Room 02 Videos, and Room 03 Full Exhibition.
 - Moved the complete 23-work archive after the screening room and retained the artist note as an unnumbered closing surface.
 - Scoped the inspector to six works when opened from Room 01 and to all 23 works when opened from Room 03.
 - Found and fixed document-level arrow handling leaking into the open inspector.
+- Sorted Room 03 by newest artwork year first, with undated pieces last and metadata order preserved for ties.
 
 ## Follow-up polish
 

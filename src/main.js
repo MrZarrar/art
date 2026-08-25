@@ -2,12 +2,13 @@ import './styles.css'
 
 import { artworks, videos } from './generated/gallery.js'
 import { createExhibitionDialog } from './exhibition-dialog.js'
-import { featuredArtworks, indexForArtwork } from './gallery-collection.js'
+import { compareArtworkArchiveOrder, featuredArtworks, indexForArtwork } from './gallery-collection.js'
 import { createGalleryController } from './gallery-controller.js'
 import { createGalleryState } from './gallery-state.js'
 import { createVideoRoom } from './video-room.js'
 
 const selectedWorks = featuredArtworks(artworks)
+const archiveWorks = [...artworks].sort(compareArtworkArchiveOrder)
 
 const padNumber = (value) => String(value).padStart(2, '0')
 const srcset = (artwork) => artwork.sources
@@ -132,7 +133,7 @@ function renderApp() {
     </header>
 
     <nav class="room-navigation" id="room-navigation" aria-label="Exhibition rooms">
-      <a class="is-current" href="#exhibition">Selected works <span>01</span></a>
+      <a class="is-current" href="#exhibition">Featured Works <span>01</span></a>
       <a href="#videos">Videos <span>02</span></a>
       <a href="#full-exhibition">Full exhibition <span>03</span></a>
     </nav>
@@ -141,7 +142,7 @@ function renderApp() {
       <section class="exhibition-room" id="exhibition" aria-labelledby="exhibition-heading">
         <div class="room-heading">
           <p>Room 01</p>
-          <h1 id="exhibition-heading">Selected works</h1>
+          <h1 id="exhibition-heading">Featured Works</h1>
           <span>${padNumber(1)} / ${padNumber(selectedWorks.length)}</span>
         </div>
 
@@ -190,10 +191,10 @@ function renderApp() {
             <p>Room 03 / Complete hanging</p>
             <h2 id="full-exhibition-heading">Full Exhibition</h2>
           </div>
-          <p>${artworks.length} works</p>
+          <p>${archiveWorks.length} works</p>
         </header>
         <ol class="exhibition-grid">
-          ${artworks.map(renderExhibitionItem).join('')}
+          ${archiveWorks.map(renderExhibitionItem).join('')}
         </ol>
       </section>
 
@@ -254,7 +255,7 @@ const section = document.querySelector('.exhibition-room')
 let galleryController
 const exhibitionDialog = createExhibitionDialog({
   dialog: document.querySelector('.artwork-dialog'),
-  artworks,
+  artworks: archiveWorks,
   onSelect: (artwork, collection) => {
     if (collection !== selectedWorks) return
     const index = indexForArtwork(selectedWorks, artwork.id)
@@ -288,7 +289,7 @@ const videoRoom = createVideoRoom([...document.querySelectorAll('.video-work vid
 
 document.querySelectorAll('.exhibition-open').forEach((button) => {
   button.addEventListener('click', () => {
-    exhibitionDialog.open(Number(button.dataset.exhibitionIndex), button, artworks)
+    exhibitionDialog.open(Number(button.dataset.exhibitionIndex), button, archiveWorks)
   })
 })
 
