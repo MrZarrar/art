@@ -281,7 +281,6 @@ main {
   z-index: 2;
   margin-top: 25px;
   border-bottom: 12px solid var(--rail);
-  perspective: 1800px;
 }
 
 .artwork-rail {
@@ -299,6 +298,8 @@ main {
   overscroll-behavior-inline: contain;
   cursor: grab;
   touch-action: pan-x pan-y;
+  perspective: 1100px;
+  perspective-origin: 50% 48%;
 }
 
 .artwork-rail.is-dragging {
@@ -333,12 +334,12 @@ main {
 }
 
 .artwork-slide.is-before {
-  transform: translateX(8%) translateY(32px) scale(0.76) rotateY(16deg);
+  transform: translateX(10%) translateY(38px) translateZ(-150px) scale(0.8) rotateY(36deg);
   transform-origin: right center;
 }
 
 .artwork-slide.is-after {
-  transform: translateX(-8%) translateY(32px) scale(0.76) rotateY(-16deg);
+  transform: translateX(-10%) translateY(38px) translateZ(-150px) scale(0.8) rotateY(-36deg);
   transform-origin: left center;
 }
 
@@ -1075,11 +1076,11 @@ main {
   }
 
   .artwork-slide.is-before {
-    transform: translateX(5%) translateY(20px) scale(0.82) rotateY(10deg);
+    transform: translateX(7%) translateY(24px) translateZ(-60px) scale(0.86) rotateY(22deg);
   }
 
   .artwork-slide.is-after {
-    transform: translateX(-5%) translateY(20px) scale(0.82) rotateY(-10deg);
+    transform: translateX(-7%) translateY(24px) translateZ(-60px) scale(0.86) rotateY(-22deg);
   }
 
   .artwork-mount {

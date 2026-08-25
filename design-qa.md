@@ -13,6 +13,8 @@
 - Mobile comparison: `output/playwright/mobile-gallery-revision-comparison.png`
 - Artwork inspector desktop: `output/playwright/artwork-inspector-revision-2.png`
 - Artwork inspector mobile: `output/playwright/mobile-inspector-revision-1.png`
+- Perspective desktop comparison: `output/playwright/perspective-qa/desktop-comparison.png`
+- Perspective mobile comparison: `output/playwright/perspective-qa/mobile-comparison.png`
 - Browser: Playwright Chromium, headed
 - CSS viewport: 1135 by 1058 desktop, 352 by 1058 mobile
 - Device scale factor: 1
@@ -79,6 +81,9 @@ The selected artwork is a labelled dialog trigger. The inspector uses a native m
 - The mobile menu opened with `aria-expanded="true"`.
 - Reduced-motion emulation produced no selected-artwork transform.
 - The clean browser session reported zero console errors and zero warnings.
+- The stronger side-panel perspective remained visible at 2434 by 947, 1366 by 900, and 1135 by 1058 desktop viewports.
+- The mobile perspective remained readable at 390 by 844 and 352 by 1058 without narrowing the selected artwork.
+- Arrow key, vertical wheel, and adjacent-panel click navigation selected Paris After Dark, Moon Knight, and After Hours in sequence.
 
 ## Comparison history
 
@@ -107,6 +112,14 @@ The earlier QA passed the flat gallery structure, but the user's subsequent real
 - Found viewport resizing could change the selected artwork while layout values were being recalculated.
 - Suspended scroll selection during resize alignment and verified the selected index remains stable.
 - Recaptured desktop and mobile, rebuilt both side-by-side comparisons, and ran the clean interaction matrix.
+
+### Revision pass 4
+
+- Increased the side-panel yaw to 36 degrees on desktop and 22 degrees on mobile.
+- Moved the perspective camera onto the scrolling rail after visual QA showed the intermediate rail was flattening the original transform.
+- Added mirrored depth and inner-edge transform origins so both adjacent panels recede toward the selected canvas.
+- Kept the selected canvas square-on and preserved every image's natural aspect ratio inside its presentation plane.
+- Repeated exact-size desktop and mobile comparisons and reran keyboard, wheel, adjacent-click, and console checks.
 
 ## Follow-up polish
 
