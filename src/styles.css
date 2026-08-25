@@ -69,6 +69,11 @@ a {
   outline-offset: 4px;
 }
 
+::selection {
+  color: white;
+  background: var(--cobalt);
+}
+
 .skip-link {
   position: fixed;
   z-index: 100;
@@ -333,6 +338,10 @@ main {
   border: 0;
   padding: 0;
   background: transparent;
+}
+
+.artwork-select:focus-visible {
+  outline-offset: 8px;
 }
 
 .artwork-mount {
@@ -1028,5 +1037,17 @@ main {
   .selected-metadata {
     transform: none !important;
     clip-path: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+
+  .artwork-mount,
+  .video-frame,
+  .artwork-dialog {
+    border: 2px solid CanvasText;
   }
 }
