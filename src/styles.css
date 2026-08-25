@@ -296,7 +296,6 @@ main {
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   overscroll-behavior-inline: contain;
-  scroll-behavior: smooth;
   cursor: grab;
   touch-action: pan-x pan-y;
 }

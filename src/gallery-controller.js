@@ -1,5 +1,7 @@
-export function wheelDelta({ deltaX, deltaY }) {
-  return Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY
+export function wheelDelta({ deltaX, deltaY, deltaMode = 0 }, viewportSize = globalThis.window?.innerHeight || 800) {
+  const strongestAxis = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY
+  const unit = deltaMode === 1 ? 16 : deltaMode === 2 ? viewportSize : 1
+  return strongestAxis * unit
 }
 
 export function nearestItemIndex(itemCentres, railCentre) {
@@ -26,17 +28,27 @@ export function createGalleryController({
   liveRegion,
   metadata,
   roomCount,
+  onOpen,
 }) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let scrollFrame = 0
   let pointerStart = null
   let dragged = false
+  let wheelAccumulator = 0
+  let wheelResetTimer = 0
+  let wheelUnlockTimer = 0
+  let wheelLocked = false
 
-  function scrollToIndex(index) {
-    items[index]?.scrollIntoView({
-      behavior: reducedMotion.matches ? 'auto' : 'smooth',
-      block: 'nearest',
-      inline: 'center',
+  function targetScrollLeft(index) {
+    const item = items[index]
+    if (!item) return rail.scrollLeft
+    return item.offsetLeft + item.offsetWidth / 2 - rail.clientWidth / 2
+  }
+
+  function scrollToIndex(index, behavior = 'smooth') {
+    rail.scrollTo({
+      left: targetScrollLeft(index),
+      behavior: reducedMotion.matches ? 'auto' : behavior,
     })
   }
 
@@ -57,8 +69,13 @@ export function createGalleryController({
       item.classList.toggle('is-before', itemIndex < index)
       item.classList.toggle('is-after', itemIndex > index)
       const button = item.querySelector('.artwork-select')
-      if (selected) button.setAttribute('aria-current', 'true')
-      else button.removeAttribute('aria-current')
+      if (selected) {
+        button.setAttribute('aria-current', 'true')
+        button.setAttribute('aria-label', `Inspect ${artworks[itemIndex].title}`)
+      } else {
+        button.removeAttribute('aria-current')
+        button.setAttribute('aria-label', `Select ${artworks[itemIndex].title}`)
+      }
     })
 
     previousButton.disabled = false
@@ -75,26 +92,41 @@ export function createGalleryController({
     window.history.replaceState(null, '', locationUrl)
   }
 
-  function selectAndScroll(index) {
+  function selectAndScroll(index, behavior = 'smooth') {
     state.select(wrapGalleryIndex(index, items.length))
-    scrollToIndex(state.getIndex())
+    scrollToIndex(state.getIndex(), behavior)
+  }
+
+  function nearestIndexFromRail() {
+    const railRect = rail.getBoundingClientRect()
+    const centres = items.map((item) => {
+      const rect = item.getBoundingClientRect()
+      return rect.left + rect.width / 2
+    })
+    return nearestItemIndex(centres, railRect.left + railRect.width / 2)
+  }
+
+  function settleToNearest() {
+    const index = nearestIndexFromRail()
+    rail.classList.remove('is-dragging')
+    state.select(index)
+    scrollToIndex(index)
   }
 
   function selectionFromScroll() {
+    if (pointerStart) return
     cancelAnimationFrame(scrollFrame)
     scrollFrame = requestAnimationFrame(() => {
-      const railRect = rail.getBoundingClientRect()
-      const centres = items.map((item) => {
-        const rect = item.getBoundingClientRect()
-        return rect.left + rect.width / 2
-      })
-      state.select(nearestItemIndex(centres, railRect.left + railRect.width / 2))
+      state.select(nearestIndexFromRail())
     })
   }
 
   items.forEach((item, index) => {
-    item.querySelector('.artwork-select').addEventListener('click', () => {
-      if (!dragged) selectAndScroll(index)
+    const button = item.querySelector('.artwork-select')
+    button.addEventListener('click', () => {
+      if (dragged) return
+      if (index === state.getIndex()) onOpen?.(index, button)
+      else selectAndScroll(index)
     })
   })
 
@@ -103,10 +135,21 @@ export function createGalleryController({
   rail.addEventListener('scroll', selectionFromScroll, { passive: true })
 
   rail.addEventListener('wheel', (event) => {
-    const delta = wheelDelta(event)
+    const delta = wheelDelta(event, rail.clientWidth)
     if (Math.abs(delta) < 1) return
     event.preventDefault()
-    rail.scrollLeft += delta
+
+    wheelAccumulator += delta
+    window.clearTimeout(wheelResetTimer)
+    wheelResetTimer = window.setTimeout(() => { wheelAccumulator = 0 }, 140)
+    if (wheelLocked || Math.abs(wheelAccumulator) < 24) return
+
+    wheelLocked = true
+    const direction = wheelAccumulator > 0 ? 1 : -1
+    wheelAccumulator = 0
+    selectAndScroll(state.getIndex() + direction)
+    window.clearTimeout(wheelUnlockTimer)
+    wheelUnlockTimer = window.setTimeout(() => { wheelLocked = false }, 260)
   }, { passive: false })
 
   rail.addEventListener('pointerdown', (event) => {
@@ -127,8 +170,8 @@ export function createGalleryController({
   const endPointerDrag = (event) => {
     if (!pointerStart) return
     pointerStart = null
-    rail.classList.remove('is-dragging')
     if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId)
+    settleToNearest()
     window.setTimeout(() => { dragged = false }, 0)
   }
 
@@ -156,6 +199,8 @@ export function createGalleryController({
     destroy() {
       unsubscribe()
       cancelAnimationFrame(scrollFrame)
+      window.clearTimeout(wheelResetTimer)
+      window.clearTimeout(wheelUnlockTimer)
     },
   }
 }

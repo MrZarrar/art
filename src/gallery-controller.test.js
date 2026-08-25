@@ -8,6 +8,11 @@ test('normalises the strongest wheel axis', () => {
   assert.equal(wheelDelta({ deltaX: -70, deltaY: 20 }), -70)
 })
 
+test('normalises wheel line and page units into pixels', () => {
+  assert.equal(wheelDelta({ deltaX: 0, deltaY: 3, deltaMode: 1 }, 800), 48)
+  assert.equal(wheelDelta({ deltaX: 0, deltaY: 1, deltaMode: 2 }, 800), 800)
+})
+
 test('chooses the item nearest to the rail centre', () => {
   assert.equal(nearestItemIndex([80, 300, 520], 310), 1)
   assert.equal(nearestItemIndex([80, 300, 520], 500), 2)
