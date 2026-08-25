@@ -2,105 +2,127 @@
 
 ## Comparison target
 
-- Source visual truth: `C:\Users\mmush\AppData\Local\Temp\codex-clipboard-73dd6c58-8c9b-48f7-91ab-a74a24012eda.png`
+- Source visual truth: `C:\Users\mmush\AppData\Local\Temp\codex-clipboard-c6c95701-d077-4c57-8081-071bf08d7ace.png`
+- User issue capture: `C:\Users\mmush\AppData\Local\Temp\codex-clipboard-71f11cff-2727-4ccc-a81b-02b54739f0a3.png`
 - Source pixels: 1487 by 1058 at device scale 1
 - Source desktop region: 1135 by 1058
 - Source mobile region: 352 by 1058
-- Implementation desktop: `output/playwright/desktop-final-loop.png`
-- Implementation mobile: `output/playwright/mobile-final-loop.png`
-- Desktop comparison: `output/playwright/desktop-comparison.png`
-- Mobile comparison: `output/playwright/mobile-comparison.png`
+- Implementation desktop: `output/playwright/desktop-gallery-revision-final.png`
+- Implementation mobile: `output/playwright/mobile-gallery-revision-final.png`
+- Desktop comparison: `output/playwright/desktop-gallery-revision-comparison.png`
+- Mobile comparison: `output/playwright/mobile-gallery-revision-comparison.png`
+- Artwork inspector desktop: `output/playwright/artwork-inspector-revision-2.png`
+- Artwork inspector mobile: `output/playwright/mobile-inspector-revision-1.png`
 - Browser: Playwright Chromium, headed
 - CSS viewport: 1135 by 1058 desktop, 352 by 1058 mobile
 - Device scale factor: 1
-- State: Room 01, Dealer's Dilemma selected, Videos room beginning below the fold
+- State: Room 01 with Dealer's Dilemma selected, followed by the Videos room
 
-The source composite was split into its desktop and mobile regions. The implementation was captured at those exact CSS pixel sizes, so no density scaling was required before comparison.
+The source composite was split into its desktop and mobile regions. Implementation captures use the same CSS pixel dimensions, so no density scaling was required. Each source crop and implementation capture was placed in one comparison raster before judging fidelity.
+
+## Findings
+
+No actionable P0, P1, or P2 finding remains.
+
+The selected artwork is intentionally larger than the source because the user explicitly requested a stronger inspection scale. This moves more of the Videos room below the first desktop viewport, but preserves the source hierarchy and is accepted as an intentional product change.
 
 ## Full-view comparison evidence
 
-The combined comparison images place source and implementation in the same raster input. Both versions use the same visual hierarchy: compact identity and room navigation, oversized cobalt room typography, black structural rails, one dominant central artwork, partial adjacent works, compact artwork metadata, then a hard transition to the black Videos room.
+The final desktop comparison shows one dominant center canvas on a black structural mount, with recognisable previous and next works receding on separately framed, angled panels. The center work is materially larger than the earlier implementation. Cobalt room lettering, black rails, concrete walls, compact metadata, and the hard black Videos transition remain consistent with the source.
 
-The implementation intentionally uses the supplied 23 artworks and 6 process videos rather than the two example posters shown in the mockup. This changes the screening-room thumbnails but preserves the source layout, dark-room contrast, metadata treatment, and media hierarchy.
+The mobile comparison preserves the large selected work with narrow adjacent artwork views on both sides. The rolling mount has top and bottom rails plus visible supports. Artwork metadata remains centered below the work, and controls remain readable without page-level horizontal overflow.
 
 ## Focused comparison evidence
 
-The mobile comparison provides the focused detail pass because it makes typography, artwork scale, edge previews, metadata, control spacing, and the room transition clearly readable. The desktop comparison is large enough to verify the corresponding rail positions, selected mount, navigation density, and screening-room handoff without another crop.
+The desktop comparison is the focused structural pass for canvas scale, adjacent-panel visibility, rail alignment, perspective, metadata placement, and room transition. The mobile comparison is the focused responsive pass for edge previews, control spacing, title hierarchy, and section handoff.
+
+The inspector captures provide the focused interaction-state pass. The artwork remains uncropped at 100 percent, uses a dedicated dark inspection surface, and exposes zoom, reset, previous, next, and close controls without covering the work.
 
 ## Required fidelity surfaces
 
 ### Fonts and typography
 
-The implementation uses Bahnschrift, Arial Narrow, and Cascadia Mono system stacks. These are close to the source's compact grotesk and monospaced labels without adding a remote font dependency. Weight, uppercase hierarchy, blue metadata, utility sizing, and room-number scale are consistent with the source. The exact source font is unavailable, so minor glyph-shape differences are accepted as P3.
+Bahnschrift, Arial Narrow, and Cascadia Mono continue to match the compact grotesk and monospaced utility language in the source. Uppercase hierarchy, cobalt metadata, letter spacing, and small room labels remain consistent. Exact glyph differences are accepted as P3 because the source font files were not supplied.
 
 ### Spacing and layout rhythm
 
-Desktop and mobile preserve the selected-artwork dominance, partial adjacent works, rail separation, centered gesture instructions, and direct Videos transition. Mobile selected metadata sits between the gallery and controls as in the source. Touch controls remain at least 44 CSS pixels high. No document-level horizontal overflow occurs at 352 or 390 pixels.
+The selected canvas now measures as the dominant room object, while both neighboring works remain visible as independent structural panels. Desktop and mobile mounts retain natural artwork proportions. The mobile inspector has no horizontal overflow, and all persistent controls remain reachable.
 
 ### Colors and visual tokens
 
-The implementation matches the pale concrete, black rail, cobalt wayfinding, warm off-white mount, and near-black screening room. It uses no gradients, purple, glass effects, rounded cards, or SaaS surfaces. Contrast remains readable in both rooms.
+The pale concrete, black structure, cobalt wayfinding, off-white canvas mounts, and near-black screening and inspection rooms match the established design. No gradients, purple controls, glass effects, rounded cards, or template surfaces were introduced.
 
 ### Image quality and asset fidelity
 
-All visible artwork and video imagery is real supplied content. Artwork uses responsive WebP sources and intrinsic width and height values. Main, overview, and dialog views use `object-fit: contain` or intrinsic sizing, so artwork is not cropped. The concrete wall is a dedicated low-contrast raster texture rather than CSS art. Boundary previews show real adjacent artworks and preserve their intrinsic ratios while the viewport reveals only their edge.
+All artwork and video imagery uses the supplied media. Gallery images continue to use responsive WebP sources. Opening the inspector loads the largest generated source on demand. Moon Knight loaded at 3200 pixels wide during QA, while smaller originals remain capped at their natural width. Images use intrinsic dimensions and contain sizing, with no crop or distortion.
 
 ### Copy and content
 
-The site uses the supplied filenames and curated metadata for titles. Unknown dates are labelled `Undated` rather than inferred from copy timestamps. Navigation and interaction language stays concise and matches the exhibition framing.
+The new `Open full screen` cue clearly explains the selected artwork action. Inspector instructions state `Scroll to zoom. Drag to inspect.` Ordering instructions in the README identify the exact metadata file and rebuild command. Existing titles, dates, media, and numbering remain data-driven.
 
-## Interactions and accessibility tested
+### Accessibility and states
 
-- Adjacent click moved from Dealer's Dilemma to Paris After Dark.
-- ArrowRight moved from Paris After Dark to Moon Knight.
-- Vertical mouse-wheel input over the rail moved from Moon Knight to After Hours.
-- Boundary previews and Previous or Next controls wrap at the first and last artwork.
-- Full Exhibition opened Dealer's Dilemma in the native dialog and restored focus to its opening thumbnail on close.
-- The mobile menu opened, navigated to Videos, then closed with `aria-expanded="false"`.
-- Starting the second process video paused the first.
-- Reduced-motion emulation produced a 0.00001 second transition and no artwork transform.
-- Mobile document client width and scroll width both measured 375 CSS pixels, confirming no page overflow.
-- The fresh final browser session reported zero console errors and zero warnings.
+The selected artwork is a labelled dialog trigger. The inspector uses a native modal dialog, labelled zoom controls, a keyboard-focusable inspection area, live zoom status, visible focus, Escape close, and focus restoration. Plus, minus, zero, arrow keys, wheel zoom, pointer pan, double-click zoom, and pinch input are supported. Reduced motion removes carousel transforms and long transitions.
+
+## Interactions verified
+
+- One vertical wheel gesture moved from work 1 to work 2.
+- Pointer dragging changed rail positions continuously at 1593, 1749, and 1964 pixels before settling on work 3.
+- A normal click on the selected artwork opened the inspector.
+- Moon Knight loaded a 3200-pixel inspection source.
+- Wheel zoom changed the viewer from 100 to 125 percent.
+- Pointer panning changed the image translation while retaining the zoom level.
+- Zero reset the view to 100 percent.
+- Escape closed the dialog and restored focus to `Inspect Moon Knight`.
+- Resizing from desktop to mobile retained work 3 as the selected artwork.
+- Mobile client and scroll widths both measured 337 CSS pixels.
+- The mobile menu opened with `aria-expanded="true"`.
+- Reduced-motion emulation produced no selected-artwork transform.
+- The clean browser session reported zero console errors and zero warnings.
 
 ## Comparison history
 
-### Pass 1
+### Earlier accepted build
 
-- P1: Full Exhibition appeared between the main gallery and Videos, so the room transition did not match the source.
-- P1: Mobile omitted selected artwork title, medium, and date.
-- P2: Adjacent slides showed mounting surface rather than recognisable artwork edges.
-- P2: The initial room height delayed Videos too far below the source composition.
-- P2: A missing favicon produced a console error.
+The earlier QA passed the flat gallery structure, but the user's subsequent real-use review identified three P1 issues: adjacent work did not read as angled rolling canvases, the center image was too small, and wheel or drag input was unreliable.
 
-### Pass 2 fixes
+### Revision pass 1
 
-- Moved Videos directly after Room 01 and placed Full Exhibition later in the document.
-- Added mobile selected metadata between the artwork rail and controls.
-- Aligned previous and next artwork images toward the visible edge.
-- Tightened desktop rail, mount, and artwork height while preserving a dominant selected canvas.
-- Added a real artwork favicon and confirmed a clean console.
-- Replaced the 2.4 MB concrete PNG with a 70 KB WebP texture.
+- Reproduced drag input staying at the same scroll position during movement and jumping after release.
+- Traced the problem to smooth behavior being applied to every direct `scrollLeft` write.
+- Found wheel behavior depended on raw deltas that were too small to cross a large snap interval on some devices.
+- Added unit-aware wheel normalization and intent-based selection.
+- Disabled smooth behavior during direct dragging and settled only after release.
 
-### Pass 3 fixes and evidence
+### Revision pass 2
 
-- Added real boundary preview clones outside the accessible artwork count.
-- Added wrap behaviour to Previous, Next, arrow, and boundary-preview selection.
-- Reduced the mobile slide gap and mount padding so both adjacent works remain visible.
-- Recaptured desktop and mobile at the exact source region sizes.
-- Final side-by-side comparison contains no actionable P0, P1, or P2 differences.
+- Enlarged the selected canvas and introduced separate angled side mounts with black structural rails and supports.
+- Added the dark full-screen artwork inspector with high-resolution sources, zoom, pan, reset, keyboard controls, and focus restoration.
+- Found pointer capture retargeted ordinary clicks to the rail and prevented the inspector from opening.
+- Delayed pointer capture until actual drag movement began.
+
+### Revision pass 3
+
+- Increased adjacent-panel visibility and contrast after the first side-by-side comparison.
+- Found viewport resizing could change the selected artwork while layout values were being recalculated.
+- Suspended scroll selection during resize alignment and verified the selected index remains stable.
+- Recaptured desktop and mobile, rebuilt both side-by-side comparisons, and ran the clean interaction matrix.
 
 ## Follow-up polish
 
-- P3: A bundled licensed display font could reproduce the source glyph shapes more exactly, but the current system stack is lighter and preserves the hierarchy.
-- P3: The real cyclic previous artwork is lighter than the mockup's dark edge piece because the implementation reflects the actual collection order.
+- P3: A licensed bundled display face could match the source glyphs more exactly if the original font becomes available.
+- P3: The collection's actual cyclic previous work differs from the mockup example, so the neighboring subject matter does not match the concept image exactly.
 
 ## Implementation checklist
 
 - [x] Source and implementation opened and normalized
 - [x] Desktop and mobile captured in the same state
+- [x] Selected canvas enlarged
+- [x] Adjacent works mounted, angled, and visible
+- [x] Wheel and drag failures reproduced and fixed
+- [x] Full-screen zoom and pan inspector verified
+- [x] High-resolution inspection sources verified
 - [x] Required fidelity surfaces checked
-- [x] Primary interactions and accessible states tested
-- [x] P0, P1, and P2 issues fixed and recaptured
 - [x] Browser console checked
 
 final result: passed
