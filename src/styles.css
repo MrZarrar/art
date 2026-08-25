@@ -153,6 +153,7 @@ a {
   padding: 38px 22px 30px;
   background: rgb(231 229 223 / 86%);
   border-right: 1px solid rgb(17 18 20 / 16%);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), visibility 280ms;
 }
 
 .room-navigation > a {
@@ -253,6 +254,8 @@ main {
   text-transform: uppercase;
   white-space: nowrap;
   opacity: 0.92;
+  transform: translateX(calc(var(--rail-progress, 0) * -5vw));
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .upper-rail {
@@ -265,6 +268,8 @@ main {
   background: var(--rail);
   border-top: 2px solid #585b5c;
   border-bottom: 2px solid #050606;
+  transform: translateX(calc(var(--rail-progress, 0) * -32px));
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .gallery-stage {
@@ -287,6 +292,15 @@ main {
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+}
+
+.artwork-rail.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
 }
 
 .artwork-rail::-webkit-scrollbar {
@@ -297,6 +311,21 @@ main {
   flex: 0 0 min(62vw, 770px);
   scroll-snap-align: center;
   scroll-snap-stop: always;
+  opacity: 0.54;
+  filter: saturate(0.55) contrast(0.9);
+  transform: translateY(20px) scale(0.88);
+  transform-origin: center;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.artwork-slide.is-selected {
+  z-index: 2;
+  opacity: 1;
+  filter: none;
+  transform: translateY(0) scale(1);
 }
 
 .artwork-select {
@@ -316,6 +345,9 @@ main {
   background: #e2e0da;
   border: 1px solid rgb(17 18 20 / 48%);
   box-shadow: 0 22px 36px rgb(0 0 0 / 11%);
+  transition:
+    background-color 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .artwork-mount img {
@@ -325,8 +357,9 @@ main {
   box-shadow: 0 12px 24px rgb(0 0 0 / 25%);
 }
 
-.artwork-slide:not(.is-selected) .artwork-mount {
-  opacity: 0.7;
+.artwork-slide.is-selected .artwork-mount {
+  background: #e8e6e0;
+  box-shadow: 0 28px 48px rgb(0 0 0 / 16%);
 }
 
 .selected-metadata {
@@ -338,6 +371,19 @@ main {
   padding: 14px 0 0 16px;
   background: rgb(231 229 223 / 88%);
   border-left: 1px solid rgb(17 18 20 / 35%);
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  transform: translateY(9px);
+  transition:
+    clip-path 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 280ms ease-out,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.selected-metadata.is-revealed {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .selected-metadata p,
@@ -946,5 +992,13 @@ main {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .room-sign,
+  .upper-rail,
+  .artwork-slide,
+  .selected-metadata {
+    transform: none !important;
+    clip-path: none !important;
   }
 }

@@ -1,6 +1,7 @@
 import './styles.css'
 
 import { artworks, videos } from './generated/gallery.js'
+import { createGalleryController } from './gallery-controller.js'
 import { createGalleryState } from './gallery-state.js'
 
 const padNumber = (value) => String(value).padStart(2, '0')
@@ -205,5 +206,56 @@ function renderApp() {
 
 renderApp()
 
-const state = createGalleryState(artworks.length)
-window.exhibition = { artworks, videos, state }
+const hashArtworkId = new URLSearchParams(window.location.hash.slice(1)).get('artwork')
+const hashArtworkIndex = artworks.findIndex((artwork) => artwork.id === hashArtworkId)
+const state = createGalleryState(artworks.length, Math.max(0, hashArtworkIndex))
+const section = document.querySelector('.exhibition-room')
+const galleryController = createGalleryController({
+  section,
+  rail: document.querySelector('.artwork-rail'),
+  items: [...document.querySelectorAll('.artwork-slide')],
+  artworks,
+  state,
+  previousButton: document.querySelector('[data-gallery-previous]'),
+  nextButton: document.querySelector('[data-gallery-next]'),
+  liveRegion: document.querySelector('.selection-announcement'),
+  metadata: document.querySelector('.selected-metadata'),
+  roomCount: document.querySelector('.room-heading > span'),
+})
+
+const menuButton = document.querySelector('.menu-toggle')
+const roomNavigation = document.querySelector('.room-navigation')
+
+menuButton.addEventListener('click', () => {
+  const open = menuButton.getAttribute('aria-expanded') !== 'true'
+  menuButton.setAttribute('aria-expanded', String(open))
+  menuButton.textContent = open ? 'Close' : 'Menu'
+  roomNavigation.classList.toggle('is-open', open)
+})
+
+roomNavigation.addEventListener('click', (event) => {
+  if (!event.target.closest('a')) return
+  menuButton.setAttribute('aria-expanded', 'false')
+  menuButton.textContent = 'Menu'
+  roomNavigation.classList.remove('is-open')
+})
+
+const roomLinks = [...roomNavigation.querySelectorAll('a[href^="#"]')]
+const roomSections = roomLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean)
+
+const roomObserver = new IntersectionObserver((entries) => {
+  const visible = entries
+    .filter((entry) => entry.isIntersecting)
+    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+  if (!visible) return
+
+  roomLinks.forEach((link) => {
+    link.classList.toggle('is-current', link.hash === `#${visible.target.id}`)
+  })
+}, { rootMargin: '-25% 0px -55%', threshold: [0, 0.15, 0.5] })
+
+roomSections.forEach((room) => roomObserver.observe(room))
+
+window.exhibition = { artworks, videos, state, galleryController }
