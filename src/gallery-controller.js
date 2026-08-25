@@ -156,7 +156,7 @@ export function createGalleryController({
   }, { passive: true })
   rail.addEventListener('scrollend', settleToNearest)
 
-  rail.addEventListener('wheel', (event) => {
+  const handleWheel = (event) => {
     const delta = wheelDelta(event, rail.clientWidth)
     if (Math.abs(delta) < 1) return
     event.preventDefault()
@@ -172,7 +172,9 @@ export function createGalleryController({
     selectAndScroll(state.getIndex() + direction)
     window.clearTimeout(wheelUnlockTimer)
     wheelUnlockTimer = window.setTimeout(() => { wheelLocked = false }, 260)
-  }, { passive: false })
+  }
+
+  rail.addEventListener('wheel', handleWheel, { capture: true, passive: false })
 
   rail.addEventListener('pointerdown', (event) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return
