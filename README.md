@@ -34,7 +34,7 @@ npm run preview
 1. Put a JPG, JPEG, PNG, or WebP file in `content/artworks/`.
 2. Run `npm run sync-content`.
 3. The artwork appears automatically with a title derived from its filename.
-4. Add an optional entry to `content/metadata.json` to control its title, date, medium, alternative text, and position.
+4. Add an optional entry to `content/metadata.json` to control its title, date, medium, alternative text, position, and whether it appears in Room 01.
 
 Use a readable filename such as `NightTrainArt.jpg`. The generated fallback title will be `Night Train`. Unknown dates display as `Undated` and are never inferred from copied file timestamps.
 
@@ -46,9 +46,12 @@ Example metadata:
   "date": "2026",
   "medium": "Digital painting",
   "alt": "A night train crossing a rain-lit city",
-  "order": 24
+  "order": 24,
+  "featured": true
 }
 ```
+
+Set `featured` to `true` to include an artwork in the curated Room 01 carousel. New artwork remains in Room 03, the Full Exhibition, until you feature it.
 
 ## Add video
 

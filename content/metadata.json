@@ -5,37 +5,43 @@
       "date": "2024",
       "medium": "Digital painting",
       "alt": "Surreal painting of hands reaching through falling playing cards",
-      "order": 1
+      "order": 1,
+      "featured": true
     },
     "ParisArt.jpg": {
       "title": "Paris After Dark",
       "medium": "Digital painting",
       "alt": "The Eiffel Tower illuminated in gold against a black night sky",
-      "order": 2
+      "order": 2,
+      "featured": true
     },
     "MoonknightArt.PNG": {
       "title": "Moon Knight",
       "medium": "Digital illustration",
       "alt": "Moon Knight and surrounding figures rendered in monochrome",
-      "order": 3
+      "order": 3,
+      "featured": true
     },
     "WinterCottageArt.jpg": {
       "title": "After Hours",
       "medium": "Digital painting",
       "alt": "A moonlit cottage in a quiet winter forest",
-      "order": 4
+      "order": 4,
+      "featured": true
     },
     "IcarusArt.PNG": {
       "title": "Icarus",
       "medium": "Digital painting",
       "alt": "A falling figure surrounded by fire and feathers",
-      "order": 5
+      "order": 5,
+      "featured": true
     },
     "PortraitArt.PNG": {
       "title": "Obscured Portrait",
       "medium": "Digital portrait",
       "alt": "Monochrome portrait with a bright horizontal band across the eyes",
-      "order": 6
+      "order": 6,
+      "featured": true
     },
     "KeyholeArt.PNG": {
       "title": "Through the Keyhole",

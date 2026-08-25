@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { nearestItemIndex, wheelDelta, wrapGalleryIndex } from './gallery-controller.js'
+import {
+  nearestItemIndex,
+  shouldHandleGalleryArrowKey,
+  wheelDelta,
+  wrapGalleryIndex,
+} from './gallery-controller.js'
 
 test('normalises the strongest wheel axis', () => {
   assert.equal(wheelDelta({ deltaX: 0, deltaY: 40 }), 40)
@@ -25,4 +30,9 @@ test('returns the first item for an empty centre list', () => {
 test('wraps gallery controls at the exhibition boundaries', () => {
   assert.equal(wrapGalleryIndex(-1, 23), 22)
   assert.equal(wrapGalleryIndex(23, 23), 0)
+})
+
+test('keeps gallery arrow navigation out of an open inspection dialog', () => {
+  assert.equal(shouldHandleGalleryArrowKey({ key: 'ArrowRight', dialogOpen: true }), false)
+  assert.equal(shouldHandleGalleryArrowKey({ key: 'ArrowRight', dialogOpen: false }), true)
 })

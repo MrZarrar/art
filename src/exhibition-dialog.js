@@ -46,6 +46,7 @@ export function createExhibitionDialog({ dialog, artworks, onSelect }) {
   const resetButton = dialog.querySelector('.dialog-reset')
   const zoomStatus = dialog.querySelector('.dialog-zoom-status')
   let activeIndex = 0
+  let activeArtworks = artworks
   let opener = null
   let scale = 1
   let pan = { x: 0, y: 0 }
@@ -128,21 +129,22 @@ export function createExhibitionDialog({ dialog, artworks, onSelect }) {
   }
 
   function render(index) {
-    activeIndex = wrapIndex(index, artworks.length)
-    const artwork = artworks[activeIndex]
+    activeIndex = wrapIndex(index, activeArtworks.length)
+    const artwork = activeArtworks[activeIndex]
     image = artworkImage(artwork)
     image.addEventListener('load', resetView, { once: true })
     imageContainer.replaceChildren(image)
-    number.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(artworks.length).padStart(2, '0')}`
+    number.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(activeArtworks.length).padStart(2, '0')}`
     title.textContent = artwork.title
     details.textContent = `${artwork.medium}, ${artwork.date}`
     viewport.setAttribute('aria-label', `Inspect ${artwork.title}`)
     resetView()
-    onSelect?.(activeIndex)
+    onSelect?.(artwork, activeArtworks)
   }
 
-  function open(index, trigger = document.activeElement) {
+  function open(index, trigger = document.activeElement, collection = artworks) {
     opener = trigger instanceof HTMLElement ? trigger : null
+    activeArtworks = collection
     render(index)
     if (!dialog.open) dialog.showModal()
     closeButton.focus()

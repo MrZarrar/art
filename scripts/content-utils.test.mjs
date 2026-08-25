@@ -41,6 +41,7 @@ test('normalises entries with safe fallbacks', () => {
     medium: 'Digital artwork',
     alt: 'Cards by Mushaf Zarrar',
     order: Number.MAX_SAFE_INTEGER,
+    featured: false,
   })
 })
 
@@ -62,6 +63,26 @@ test('applies curated metadata without losing entry identity', () => {
   assert.equal(entry.date, '2024')
   assert.equal(entry.medium, 'Digital painting')
   assert.equal(entry.order, 1)
+})
+
+test('keeps an artwork in the selected collection when featured is true', () => {
+  const entry = normaliseEntry(
+    { name: 'CardsArt.JPG', relativePath: 'cards-art.jpg' },
+    { featured: true },
+    'artwork',
+  )
+
+  assert.equal(entry.featured, true)
+})
+
+test('keeps unmarked artwork in the full exhibition only', () => {
+  const entry = normaliseEntry(
+    { name: 'CardsArt.JPG', relativePath: 'cards-art.jpg' },
+    {},
+    'artwork',
+  )
+
+  assert.equal(entry.featured, false)
 })
 
 test('builds responsive widths with a high-resolution inspection source', () => {

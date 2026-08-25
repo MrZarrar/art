@@ -2,9 +2,12 @@ import './styles.css'
 
 import { artworks, videos } from './generated/gallery.js'
 import { createExhibitionDialog } from './exhibition-dialog.js'
+import { featuredArtworks, indexForArtwork } from './gallery-collection.js'
 import { createGalleryController } from './gallery-controller.js'
 import { createGalleryState } from './gallery-state.js'
 import { createVideoRoom } from './video-room.js'
+
+const selectedWorks = featuredArtworks(artworks)
 
 const padNumber = (value) => String(value).padStart(2, '0')
 const srcset = (artwork) => artwork.sources
@@ -116,7 +119,7 @@ function renderVideo(video, index) {
 }
 
 function renderApp() {
-  const selected = artworks[0]
+  const selected = selectedWorks[0]
 
   document.querySelector('#app').innerHTML = `
     <header class="site-header">
@@ -129,21 +132,17 @@ function renderApp() {
     </header>
 
     <nav class="room-navigation" id="room-navigation" aria-label="Exhibition rooms">
-      <a class="is-current" href="#exhibition">Exhibition <span>01</span></a>
+      <a class="is-current" href="#exhibition">Selected works <span>01</span></a>
       <a href="#videos">Videos <span>02</span></a>
-      <a href="#about">About <span>03</span></a>
-      <a class="full-exhibition-link" href="#full-exhibition">
-        <span class="full-exhibition-mark" aria-hidden="true">23</span>
-        <span>Full Exhibition<br />23 works</span>
-      </a>
+      <a href="#full-exhibition">Full exhibition <span>03</span></a>
     </nav>
 
     <main>
       <section class="exhibition-room" id="exhibition" aria-labelledby="exhibition-heading">
         <div class="room-heading">
           <p>Room 01</p>
-          <h1 id="exhibition-heading">Exhibition</h1>
-          <span>${padNumber(1)} / ${padNumber(artworks.length)}</span>
+          <h1 id="exhibition-heading">Selected works</h1>
+          <span>${padNumber(1)} / ${padNumber(selectedWorks.length)}</span>
         </div>
 
         <div class="room-sign" aria-hidden="true">Room 01</div>
@@ -151,13 +150,13 @@ function renderApp() {
 
         <div class="gallery-stage">
           <ol class="artwork-rail" aria-label="Artwork carousel">
-            ${renderArtworkClone(artworks.at(-1), 'previous')}
-            ${artworks.map(renderArtworkSlide).join('')}
-            ${renderArtworkClone(artworks[0], 'next')}
+            ${renderArtworkClone(selectedWorks.at(-1), 'previous')}
+            ${selectedWorks.map(renderArtworkSlide).join('')}
+            ${renderArtworkClone(selectedWorks[0], 'next')}
           </ol>
 
           <aside class="selected-metadata" aria-live="off">
-            <p class="selected-number"><span>01</span> / ${padNumber(artworks.length)}</p>
+            <p class="selected-number"><span>01</span> / ${padNumber(selectedWorks.length)}</p>
             <h2>${selected.title}</h2>
             <p>${selected.medium}<br />${selected.date}</p>
           </aside>
@@ -170,19 +169,6 @@ function renderApp() {
         </div>
 
         <p class="selection-announcement visually-hidden" aria-live="polite"></p>
-      </section>
-
-      <section class="full-exhibition" id="full-exhibition" aria-labelledby="full-exhibition-heading">
-        <header class="section-heading section-heading--light">
-          <div>
-            <p>Room 01 / Complete hanging</p>
-            <h2 id="full-exhibition-heading">Full Exhibition</h2>
-          </div>
-          <p>${artworks.length} works</p>
-        </header>
-        <ol class="exhibition-grid">
-          ${artworks.map(renderExhibitionItem).join('')}
-        </ol>
       </section>
 
       <section class="videos-room" id="videos" aria-labelledby="videos-heading">
@@ -198,8 +184,21 @@ function renderApp() {
         </div>
       </section>
 
-      <section class="about-room" id="about" aria-labelledby="about-heading">
-        <p class="about-number">Room 03</p>
+      <section class="full-exhibition" id="full-exhibition" aria-labelledby="full-exhibition-heading">
+        <header class="section-heading section-heading--light">
+          <div>
+            <p>Room 03 / Complete hanging</p>
+            <h2 id="full-exhibition-heading">Full Exhibition</h2>
+          </div>
+          <p>${artworks.length} works</p>
+        </header>
+        <ol class="exhibition-grid">
+          ${artworks.map(renderExhibitionItem).join('')}
+        </ol>
+      </section>
+
+      <footer class="about-room" aria-labelledby="about-heading">
+        <p class="about-number">Artist note</p>
         <div>
           <h2 id="about-heading">Mushaf Zarrar</h2>
           <p>
@@ -208,7 +207,7 @@ function renderApp() {
           </p>
         </div>
         <a href="#exhibition">Return to Room 01</a>
-      </section>
+      </footer>
     </main>
 
     <dialog class="artwork-dialog" aria-labelledby="dialog-title">
@@ -248,35 +247,37 @@ function renderApp() {
 
 renderApp()
 
-document.querySelector('.videos-room').after(document.querySelector('.full-exhibition'))
-
 const hashArtworkId = new URLSearchParams(window.location.hash.slice(1)).get('artwork')
-const hashArtworkIndex = artworks.findIndex((artwork) => artwork.id === hashArtworkId)
-const state = createGalleryState(artworks.length, Math.max(0, hashArtworkIndex))
+const hashArtworkIndex = indexForArtwork(selectedWorks, hashArtworkId)
+const state = createGalleryState(selectedWorks.length, Math.max(0, hashArtworkIndex))
 const section = document.querySelector('.exhibition-room')
 let galleryController
 const exhibitionDialog = createExhibitionDialog({
   dialog: document.querySelector('.artwork-dialog'),
   artworks,
-  onSelect: (index) => galleryController?.select(index),
+  onSelect: (artwork, collection) => {
+    if (collection !== selectedWorks) return
+    const index = indexForArtwork(selectedWorks, artwork.id)
+    if (index >= 0) galleryController?.select(index)
+  },
 })
 
 galleryController = createGalleryController({
   section,
   rail: document.querySelector('.artwork-rail'),
   items: [...document.querySelectorAll('.artwork-slide:not(.artwork-slide--clone)')],
-  artworks,
+  artworks: selectedWorks,
   state,
   previousButton: document.querySelector('[data-gallery-previous]'),
   nextButton: document.querySelector('[data-gallery-next]'),
   liveRegion: document.querySelector('.selection-announcement'),
   metadata: document.querySelector('.selected-metadata'),
   roomCount: document.querySelector('.room-heading > span'),
-  onOpen: (index, trigger) => exhibitionDialog.open(index, trigger),
+  onOpen: (index, trigger) => exhibitionDialog.open(index, trigger, selectedWorks),
 })
 
 document.querySelector('[data-boundary-preview="previous"]').addEventListener('click', () => {
-  galleryController.select(artworks.length - 1)
+  galleryController.select(selectedWorks.length - 1)
 })
 
 document.querySelector('[data-boundary-preview="next"]').addEventListener('click', () => {
@@ -287,7 +288,7 @@ const videoRoom = createVideoRoom([...document.querySelectorAll('.video-work vid
 
 document.querySelectorAll('.exhibition-open').forEach((button) => {
   button.addEventListener('click', () => {
-    exhibitionDialog.open(Number(button.dataset.exhibitionIndex), button)
+    exhibitionDialog.open(Number(button.dataset.exhibitionIndex), button, artworks)
   })
 })
 

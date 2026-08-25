@@ -47,5 +47,6 @@ export function normaliseEntry(file, metadata = {}, kind) {
     medium: metadata.medium || mediumFallback,
     alt: metadata.alt || `${title} by Mushaf Zarrar`,
     order: Number.isFinite(metadata.order) ? metadata.order : Number.MAX_SAFE_INTEGER,
+    featured: metadata.featured === true,
   }
 }

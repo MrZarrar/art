@@ -26,6 +26,8 @@ The source composite was split into its desktop and mobile regions. Implementati
 
 No actionable P0, P1, or P2 finding remains.
 
+Room numbering now follows the visitor journey: a curated Room 01, the Room 02 screening room, and the complete 23-work archive in Room 03. The artist note remains available as an unnumbered closing surface.
+
 The selected artwork is intentionally larger than the source because the user explicitly requested a stronger inspection scale. This moves more of the Videos room below the first desktop viewport, but preserves the source hierarchy and is accepted as an intentional product change.
 
 ## Full-view comparison evidence
@@ -84,6 +86,9 @@ The selected artwork is a labelled dialog trigger. The inspector uses a native m
 - The stronger side-panel perspective remained visible at 2434 by 947, 1366 by 900, and 1135 by 1058 desktop viewports.
 - The mobile perspective remained readable at 390 by 844 and 352 by 1058 without narrowing the selected artwork.
 - Arrow key, vertical wheel, and adjacent-panel click navigation selected Paris After Dark, Moon Knight, and After Hours in sequence.
+- Room 01 rendered six curated works, while Room 03 rendered the complete 23-work archive.
+- The Room 01 inspector advanced from Paris After Dark to Moon Knight as 03 / 06 without changing a different background selection.
+- The final Room 03 archive item opened the inspector as 23 / 23.
 
 ## Comparison history
 
@@ -120,6 +125,14 @@ The earlier QA passed the flat gallery structure, but the user's subsequent real
 - Added mirrored depth and inner-edge transform origins so both adjacent panels recede toward the selected canvas.
 - Kept the selected canvas square-on and preserved every image's natural aspect ratio inside its presentation plane.
 - Repeated exact-size desktop and mobile comparisons and reran keyboard, wheel, adjacent-click, and console checks.
+
+### Revision pass 5
+
+- Added data-driven featured artwork metadata so Room 01 only displays selected works.
+- Reframed the navigation as Room 01 Selected Works, Room 02 Videos, and Room 03 Full Exhibition.
+- Moved the complete 23-work archive after the screening room and retained the artist note as an unnumbered closing surface.
+- Scoped the inspector to six works when opened from Room 01 and to all 23 works when opened from Room 03.
+- Found and fixed document-level arrow handling leaking into the open inspector.
 
 ## Follow-up polish
 

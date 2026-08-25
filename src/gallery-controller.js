@@ -17,6 +17,10 @@ export function wrapGalleryIndex(index, count) {
   return ((index % count) + count) % count
 }
 
+export function shouldHandleGalleryArrowKey({ key, dialogOpen }) {
+  return (key === 'ArrowLeft' || key === 'ArrowRight') && !dialogOpen
+}
+
 export function createGalleryController({
   section,
   rail,
@@ -185,7 +189,10 @@ export function createGalleryController({
   rail.addEventListener('pointercancel', endPointerDrag)
 
   document.addEventListener('keydown', (event) => {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+    if (!shouldHandleGalleryArrowKey({
+      key: event.key,
+      dialogOpen: Boolean(event.target.closest('dialog[open]')),
+    })) return
     if (event.target.closest('video, input, textarea, select')) return
 
     const rect = section.getBoundingClientRect()
