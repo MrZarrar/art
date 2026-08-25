@@ -182,7 +182,7 @@ export const artworks = [
     ]
   },
   {
-    "id": "rhulart",
+    "id": "rhul-art",
     "kind": "artwork",
     "title": "Royal Holloway",
     "date": "Undated",
@@ -191,18 +191,18 @@ export const artworks = [
     "order": 8,
     "width": 4961,
     "height": 3508,
-    "src": "media/artworks/rhulart-1200.webp",
+    "src": "media/artworks/rhul-art-1200.webp",
     "sources": [
       {
-        "src": "media/artworks/rhulart-640.webp",
+        "src": "media/artworks/rhul-art-640.webp",
         "width": 640
       },
       {
-        "src": "media/artworks/rhulart-1200.webp",
+        "src": "media/artworks/rhul-art-1200.webp",
         "width": 1200
       },
       {
-        "src": "media/artworks/rhulart-2000.webp",
+        "src": "media/artworks/rhul-art-2000.webp",
         "width": 2000
       }
     ]
@@ -565,18 +565,18 @@ export const artworks = [
 
 export const videos = [
   {
-    "id": "rhulspeed-draw",
+    "id": "rhul-speed-draw",
     "kind": "video",
     "title": "Royal Holloway Speed Draw",
     "date": "Undated",
     "medium": "Process film",
     "alt": "Royal Holloway Speed Draw by Mushaf Zarrar",
     "order": 1,
-    "src": "media/videos/rhulspeed-draw.mp4",
+    "src": "media/videos/rhul-speed-draw.mp4",
     "width": 1024,
     "height": 720,
     "duration": 29.9,
-    "poster": null
+    "poster": "media/artworks/rhul-art-1200.webp"
   },
   {
     "id": "keyhole-speed-draw",

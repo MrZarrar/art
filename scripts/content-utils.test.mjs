@@ -22,6 +22,7 @@ test('humanises process video filenames', () => {
 
 test('creates stable lower-case IDs', () => {
   assert.equal(createId('Moonknight Eye Vid.mp4'), 'moonknight-eye-vid')
+  assert.equal(createId('RHULArt.PNG'), 'rhul-art')
 })
 
 test('normalises entries with safe fallbacks', () => {
