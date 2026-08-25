@@ -32,6 +32,8 @@ export function createGalleryController({
 }) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   let scrollFrame = 0
+  let resizeFrame = 0
+  let scrollReady = false
   let pointerStart = null
   let dragged = false
   let wheelAccumulator = 0
@@ -114,7 +116,7 @@ export function createGalleryController({
   }
 
   function selectionFromScroll() {
-    if (pointerStart) return
+    if (!scrollReady || pointerStart) return
     cancelAnimationFrame(scrollFrame)
     scrollFrame = requestAnimationFrame(() => {
       state.select(nearestIndexFromRail())
@@ -156,22 +158,26 @@ export function createGalleryController({
     if (event.pointerType !== 'mouse' || event.button !== 0) return
     pointerStart = { x: event.clientX, scrollLeft: rail.scrollLeft }
     dragged = false
-    rail.setPointerCapture(event.pointerId)
-    rail.classList.add('is-dragging')
   })
 
   rail.addEventListener('pointermove', (event) => {
     if (!pointerStart) return
     const distance = event.clientX - pointerStart.x
-    if (Math.abs(distance) > 6) dragged = true
+    if (!dragged && Math.abs(distance) <= 6) return
+    if (!dragged) {
+      dragged = true
+      rail.setPointerCapture(event.pointerId)
+      rail.classList.add('is-dragging')
+    }
     rail.scrollLeft = pointerStart.scrollLeft - distance
   })
 
   const endPointerDrag = (event) => {
     if (!pointerStart) return
+    const shouldSettle = dragged
     pointerStart = null
     if (rail.hasPointerCapture(event.pointerId)) rail.releasePointerCapture(event.pointerId)
-    settleToNearest()
+    if (shouldSettle) settleToNearest()
     window.setTimeout(() => { dragged = false }, 0)
   }
 
@@ -190,17 +196,33 @@ export function createGalleryController({
     selectAndScroll(state.getIndex() + (event.key === 'ArrowRight' ? 1 : -1))
   })
 
+  const alignAfterResize = () => {
+    scrollReady = false
+    cancelAnimationFrame(resizeFrame)
+    resizeFrame = requestAnimationFrame(() => {
+      scrollToIndex(state.getIndex(), 'auto')
+      requestAnimationFrame(() => { scrollReady = true })
+    })
+  }
+
+  window.addEventListener('resize', alignAfterResize)
+
   const unsubscribe = state.subscribe((index) => updateSelection(index))
   updateSelection(state.getIndex(), false)
-  requestAnimationFrame(() => scrollToIndex(state.getIndex()))
+  requestAnimationFrame(() => {
+    scrollToIndex(state.getIndex(), 'auto')
+    requestAnimationFrame(() => { scrollReady = true })
+  })
 
   return {
     select: selectAndScroll,
     destroy() {
       unsubscribe()
       cancelAnimationFrame(scrollFrame)
+      cancelAnimationFrame(resizeFrame)
       window.clearTimeout(wheelResetTimer)
       window.clearTimeout(wheelUnlockTimer)
+      window.removeEventListener('resize', alignAfterResize)
     },
   }
 }

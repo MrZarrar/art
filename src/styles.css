@@ -281,15 +281,16 @@ main {
   z-index: 2;
   margin-top: 25px;
   border-bottom: 12px solid var(--rail);
+  perspective: 1800px;
 }
 
 .artwork-rail {
   display: flex;
   gap: clamp(22px, 4vw, 64px);
   align-items: center;
-  min-height: clamp(400px, 41vh, 440px);
+  min-height: clamp(520px, 58vh, 650px);
   margin: 0;
-  padding: 24px calc((100% - min(62vw, 770px)) / 2);
+  padding: 34px calc((100% - min(64vw, 920px)) / 2) 46px;
   overflow-x: auto;
   overflow-y: hidden;
   list-style: none;
@@ -311,12 +312,12 @@ main {
 }
 
 .artwork-slide {
-  flex: 0 0 min(62vw, 770px);
+  flex: 0 0 min(64vw, 920px);
   scroll-snap-align: center;
   scroll-snap-stop: always;
-  opacity: 0.72;
-  filter: saturate(0.78) contrast(0.94);
-  transform: translateY(18px) scale(0.9);
+  opacity: 0.62;
+  filter: saturate(0.72) contrast(0.9);
+  transform: translateY(32px) scale(0.76);
   transform-origin: center;
   transition:
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -325,10 +326,20 @@ main {
 }
 
 .artwork-slide.is-selected {
-  z-index: 2;
+  z-index: 4;
   opacity: 1;
   filter: none;
   transform: translateY(0) scale(1);
+}
+
+.artwork-slide.is-before {
+  transform: translateX(8%) translateY(32px) scale(0.76) rotateY(16deg);
+  transform-origin: right center;
+}
+
+.artwork-slide.is-after {
+  transform: translateX(-8%) translateY(32px) scale(0.76) rotateY(-16deg);
+  transform-origin: left center;
 }
 
 .artwork-slide.is-before .artwork-mount {
@@ -351,23 +362,38 @@ main {
 }
 
 .artwork-mount {
+  position: relative;
   display: flex;
   width: 100%;
-  min-height: clamp(350px, 36vh, 390px);
+  min-height: clamp(480px, 53vh, 600px);
   align-items: center;
   justify-content: center;
-  padding: clamp(16px, 2.5vw, 34px);
+  padding: clamp(22px, 3vw, 44px);
   background: #e2e0da;
   border: 1px solid rgb(17 18 20 / 48%);
+  border-top: 9px solid var(--rail);
+  border-bottom: 9px solid var(--rail);
   box-shadow: 0 22px 36px rgb(0 0 0 / 11%);
   transition:
     background-color 700ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.artwork-mount::after {
+  position: absolute;
+  right: 21%;
+  bottom: -38px;
+  left: 21%;
+  height: 30px;
+  border-right: 7px solid var(--rail);
+  border-left: 7px solid var(--rail);
+  content: "";
+}
+
 .artwork-mount img {
   width: auto;
-  max-height: clamp(320px, 33vh, 360px);
+  max-width: 100%;
+  max-height: clamp(430px, 47vh, 540px);
   object-fit: contain;
   box-shadow: 0 12px 24px rgb(0 0 0 / 25%);
 }
@@ -375,6 +401,29 @@ main {
 .artwork-slide.is-selected .artwork-mount {
   background: #e8e6e0;
   box-shadow: 0 28px 48px rgb(0 0 0 / 16%);
+}
+
+.inspect-hint {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  padding: 7px 9px;
+  color: white;
+  background: var(--cobalt);
+  font-family: var(--utility);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 240ms ease-out, transform 240ms ease-out;
+}
+
+.artwork-slide.is-selected .inspect-hint,
+.artwork-slide.is-selected .artwork-select:hover .inspect-hint,
+.artwork-slide.is-selected .artwork-select:focus-visible .inspect-hint {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .selected-metadata {
@@ -687,14 +736,15 @@ main {
 }
 
 .artwork-dialog {
-  width: min(1100px, calc(100% - 32px));
+  width: 100%;
   max-width: none;
-  height: min(860px, calc(100% - 32px));
+  height: 100dvh;
   max-height: none;
-  border: 1px solid #6b6c68;
-  padding: 18px;
-  color: var(--ink);
-  background: var(--concrete);
+  margin: 0;
+  border: 0;
+  padding: 0;
+  color: var(--video-white);
+  background: #070809;
 }
 
 .artwork-dialog[open] {
@@ -702,7 +752,7 @@ main {
 }
 
 .artwork-dialog::backdrop {
-  background: rgb(4 5 5 / 88%);
+  background: rgb(4 5 5 / 96%);
   animation: backdrop-enter 300ms ease-out both;
 }
 
@@ -710,25 +760,85 @@ main {
   display: none;
 }
 
+.dialog-toolbar {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  min-height: 66px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 10px 22px;
+  background: #070809;
+  border-bottom: 1px solid #35383b;
+}
+
+.dialog-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.dialog-zoom-status {
+  min-width: 52px;
+  color: var(--video-white);
+  font-family: var(--utility);
+  font-size: 0.7rem;
+  text-align: center;
+}
+
 .artwork-dialog figure {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px;
+  grid-template-columns: minmax(0, 1fr) 210px;
   gap: 24px;
-  height: calc(100% - 54px);
-  margin: 18px 0 0;
+  height: 100%;
+  margin: 0;
+  padding: 88px 24px 76px;
+}
+
+.dialog-viewport {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: #020303;
+  border: 1px solid #2d3033;
+  cursor: zoom-in;
+  touch-action: none;
+}
+
+.dialog-viewport.is-zoomed {
+  cursor: grab;
+}
+
+.dialog-viewport.is-panning {
+  cursor: grabbing;
 }
 
 .dialog-image {
   display: flex;
-  min-height: 0;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
 }
 
 .dialog-image img {
   width: auto;
+  max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  transform-origin: center;
+  transition: transform 120ms ease-out;
+  will-change: transform;
+  user-select: none;
+}
+
+.dialog-viewport.is-panning .dialog-image img {
+  transition: none;
 }
 
 .artwork-dialog button {
@@ -742,7 +852,7 @@ main {
 }
 
 .dialog-close {
-  float: right;
+  order: -1;
 }
 
 .dialog-previous,
@@ -761,7 +871,7 @@ main {
 
 .artwork-dialog figcaption {
   align-self: end;
-  padding-bottom: 48px;
+  padding-bottom: 8px;
   font-family: var(--utility);
   text-transform: uppercase;
 }
@@ -786,6 +896,18 @@ main {
   color: #62635f;
   font-size: 0.7rem;
   line-height: 1.5;
+}
+
+.dialog-view-note {
+  margin-top: 24px !important;
+  color: #8b8e91;
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+
+.dialog-zoom-controls button:disabled {
+  color: #62666a;
+  cursor: not-allowed;
 }
 
 @keyframes dialog-enter {
@@ -851,11 +973,11 @@ main {
   }
 
   .artwork-slide {
-    flex-basis: min(74vw, 690px);
+    flex-basis: min(72vw, 760px);
   }
 
   .artwork-rail {
-    padding-inline: calc((100% - min(74vw, 690px)) / 2);
+    padding-inline: calc((100% - min(72vw, 760px)) / 2);
   }
 
   .selected-metadata {
@@ -943,22 +1065,41 @@ main {
   }
 
   .artwork-rail {
-    gap: 8px;
-    min-height: 350px;
-    padding: 18px calc((100% - 72vw) / 2) 22px;
+    gap: 12px;
+    min-height: 450px;
+    padding: 22px calc((100% - 78vw) / 2) 38px;
   }
 
   .artwork-slide {
-    flex-basis: 72vw;
+    flex-basis: 78vw;
+  }
+
+  .artwork-slide.is-before {
+    transform: translateX(5%) translateY(20px) scale(0.82) rotateY(10deg);
+  }
+
+  .artwork-slide.is-after {
+    transform: translateX(-5%) translateY(20px) scale(0.82) rotateY(-10deg);
   }
 
   .artwork-mount {
-    min-height: 310px;
-    padding: 8px;
+    min-height: 390px;
+    padding: 12px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
   }
 
   .artwork-mount img {
-    max-height: 286px;
+    max-height: 352px;
+  }
+
+  .artwork-mount::after {
+    right: 24%;
+    bottom: -31px;
+    left: 24%;
+    height: 24px;
+    border-right-width: 5px;
+    border-left-width: 5px;
   }
 
   .gallery-controls {
@@ -1035,13 +1176,36 @@ main {
     grid-column: 1;
   }
 
+  .dialog-toolbar {
+    min-height: 112px;
+    align-items: flex-start;
+    padding: 12px 16px;
+  }
+
+  .dialog-zoom-controls {
+    max-width: 240px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px 14px;
+  }
+
+  .dialog-zoom-status {
+    order: -1;
+  }
+
   .artwork-dialog figure {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 124px 12px 66px;
   }
 
   .artwork-dialog figcaption {
-    padding: 0 0 48px;
+    padding: 0;
+  }
+
+  .dialog-view-note {
+    display: none;
   }
 }
 

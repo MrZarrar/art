@@ -38,10 +38,12 @@ function renderArtworkSlide(artwork, index) {
         class="artwork-select"
         type="button"
         aria-label="Select ${artwork.title}"
+        aria-haspopup="dialog"
         ${index === 0 ? 'aria-current="true"' : ''}
       >
         <span class="artwork-mount">
           ${artworkPicture(artwork, { eager: index < 2 })}
+          <span class="inspect-hint">Open full screen</span>
         </span>
       </button>
     </li>
@@ -210,17 +212,36 @@ function renderApp() {
     </main>
 
     <dialog class="artwork-dialog" aria-labelledby="dialog-title">
-      <button class="dialog-close" type="button">Close</button>
+      <div class="dialog-toolbar">
+        <button class="dialog-close" type="button">Close</button>
+        <div class="dialog-zoom-controls" aria-label="Artwork zoom controls">
+          <button class="dialog-zoom-out" type="button">Zoom out</button>
+          <output class="dialog-zoom-status" aria-live="polite">100%</output>
+          <button class="dialog-zoom-in" type="button">Zoom in</button>
+          <button class="dialog-reset" type="button">Reset view</button>
+        </div>
+      </div>
       <button class="dialog-previous" type="button">Previous work</button>
       <figure>
-        <div class="dialog-image"></div>
+        <div
+          class="dialog-viewport"
+          tabindex="0"
+          aria-label="Artwork inspection area"
+          aria-describedby="dialog-zoom-help"
+        >
+          <div class="dialog-image"></div>
+        </div>
         <figcaption>
           <p class="dialog-number"></p>
           <h2 id="dialog-title"></h2>
           <p class="dialog-details"></p>
+          <p class="dialog-view-note">Scroll to zoom. Drag to inspect.</p>
         </figcaption>
       </figure>
       <button class="dialog-next" type="button">Next work</button>
+      <p class="visually-hidden" id="dialog-zoom-help">
+        Use the mouse wheel or zoom buttons to enlarge the artwork. Drag or use arrow keys to pan when zoomed. Press zero to reset and Escape to close.
+      </p>
     </dialog>
   `
 }
@@ -233,7 +254,14 @@ const hashArtworkId = new URLSearchParams(window.location.hash.slice(1)).get('ar
 const hashArtworkIndex = artworks.findIndex((artwork) => artwork.id === hashArtworkId)
 const state = createGalleryState(artworks.length, Math.max(0, hashArtworkIndex))
 const section = document.querySelector('.exhibition-room')
-const galleryController = createGalleryController({
+let galleryController
+const exhibitionDialog = createExhibitionDialog({
+  dialog: document.querySelector('.artwork-dialog'),
+  artworks,
+  onSelect: (index) => galleryController?.select(index),
+})
+
+galleryController = createGalleryController({
   section,
   rail: document.querySelector('.artwork-rail'),
   items: [...document.querySelectorAll('.artwork-slide:not(.artwork-slide--clone)')],
@@ -244,6 +272,7 @@ const galleryController = createGalleryController({
   liveRegion: document.querySelector('.selection-announcement'),
   metadata: document.querySelector('.selected-metadata'),
   roomCount: document.querySelector('.room-heading > span'),
+  onOpen: (index, trigger) => exhibitionDialog.open(index, trigger),
 })
 
 document.querySelector('[data-boundary-preview="previous"]').addEventListener('click', () => {
@@ -252,12 +281,6 @@ document.querySelector('[data-boundary-preview="previous"]').addEventListener('c
 
 document.querySelector('[data-boundary-preview="next"]').addEventListener('click', () => {
   galleryController.select(0)
-})
-
-const exhibitionDialog = createExhibitionDialog({
-  dialog: document.querySelector('.artwork-dialog'),
-  artworks,
-  onSelect: (index) => galleryController.select(index),
 })
 
 const videoRoom = createVideoRoom([...document.querySelectorAll('.video-work video')])
