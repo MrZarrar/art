@@ -48,5 +48,8 @@ export function normaliseEntry(file, metadata = {}, kind) {
     alt: metadata.alt || `${title} by Mushaf Zarrar`,
     order: Number.isFinite(metadata.order) ? metadata.order : Number.MAX_SAFE_INTEGER,
     featured: metadata.featured === true,
+    featuredOrder: Number.isFinite(metadata.featuredOrder)
+      ? metadata.featuredOrder
+      : Number.MAX_SAFE_INTEGER,
   }
 }

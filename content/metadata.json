@@ -6,54 +6,58 @@
       "medium": "Digital painting",
       "alt": "Surreal painting of hands reaching through falling playing cards",
       "order": 1,
-      "featured": true
+      "featured": true,
+      "featuredOrder": 3
     },
     "ParisArt.jpg": {
       "title": "Paris After Dark",
       "medium": "Digital painting",
       "alt": "The Eiffel Tower illuminated in gold against a black night sky",
-      "order": 2,
-      "featured": true
+      "order": 2
     },
     "MoonknightArt.PNG": {
       "title": "Moon Knight",
       "medium": "Digital illustration",
       "alt": "Moon Knight and surrounding figures rendered in monochrome",
       "order": 3,
-      "featured": true
+      "featured": true,
+      "featuredOrder": 2
     },
     "WinterCottageArt.jpg": {
       "title": "After Hours",
       "medium": "Digital painting",
       "alt": "A moonlit cottage in a quiet winter forest",
-      "order": 4,
-      "featured": true
+      "order": 4
     },
     "IcarusArt.PNG": {
       "title": "Icarus",
       "medium": "Digital painting",
       "alt": "A falling figure surrounded by fire and feathers",
       "order": 5,
-      "featured": true
+      "featured": true,
+      "featuredOrder": 5
     },
     "PortraitArt.PNG": {
       "title": "Obscured Portrait",
       "medium": "Digital portrait",
       "alt": "Monochrome portrait with a bright horizontal band across the eyes",
-      "order": 6,
-      "featured": true
+      "order": 6
     },
     "KeyholeArt.PNG": {
       "title": "Through the Keyhole",
       "medium": "Digital painting",
       "alt": "A cloaked figure looking through a glowing keyhole into a cosmic scene",
-      "order": 7
+      "order": 7,
+      "featured": true,
+      "featuredOrder": 6
     },
     "RHULArt.PNG": {
       "title": "Royal Holloway",
       "medium": "Digital landscape",
       "alt": "Royal Holloway campus beneath an aurora and mountain landscape",
-      "order": 8
+      "order": 8,
+      "featured": true,
+      "featuredOrder": 9
     },
     "LondonArt.jpg": {
       "title": "London",
@@ -71,7 +75,9 @@
       "title": "The Dark Knight",
       "medium": "Digital illustration",
       "alt": "Batman standing against a deep blue night sky",
-      "order": 11
+      "order": 11,
+      "featured": true,
+      "featuredOrder": 7
     },
     "EvilQueenArt.jpg": {
       "title": "Mirror, Mirror",
@@ -83,7 +89,9 @@
       "title": "DS 9",
       "medium": "Digital automotive illustration",
       "alt": "Blue DS 9 saloon in a graphic tricolour setting",
-      "order": 13
+      "order": 13,
+      "featured": true,
+      "featuredOrder": 4
     },
     "208Art.jpg": {
       "title": "208",
@@ -96,7 +104,9 @@
       "title": "Fal Abi",
       "medium": "Digital portrait",
       "alt": "Formal wedding portrait against a vivid blue and magenta background",
-      "order": 15
+      "order": 15,
+      "featured": true,
+      "featuredOrder": 8
     },
     "LakeArt.jpg": {
       "title": "Luminous Lake",
@@ -147,6 +157,14 @@
       "medium": "Pencil and coloured pencil",
       "alt": "Two Goku studies showing artistic progress from 2018 to 2019",
       "order": 23
+    },
+    "SpiderverseArt.png": {
+      "title": "Spider-Verse",
+      "medium": "Digital illustration",
+      "alt": "Three Spider-Verse heroes falling through a neon city portal",
+      "order": 24,
+      "featured": true,
+      "featuredOrder": 1
     }
   },
   "videos": {

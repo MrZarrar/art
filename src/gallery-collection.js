@@ -1,5 +1,11 @@
 export function featuredArtworks(artworks) {
-  return artworks.filter((artwork) => artwork.featured)
+  return artworks
+    .filter((artwork) => artwork.featured)
+    .toSorted((first, second) => (
+      (first.featuredOrder ?? Number.MAX_SAFE_INTEGER) - (second.featuredOrder ?? Number.MAX_SAFE_INTEGER)
+      || (first.order ?? Number.MAX_SAFE_INTEGER) - (second.order ?? Number.MAX_SAFE_INTEGER)
+      || first.title.localeCompare(second.title)
+    ))
 }
 
 export function indexForArtwork(artworks, artworkId) {

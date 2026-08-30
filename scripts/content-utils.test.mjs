@@ -42,6 +42,7 @@ test('normalises entries with safe fallbacks', () => {
     alt: 'Cards by Mushaf Zarrar',
     order: Number.MAX_SAFE_INTEGER,
     featured: false,
+    featuredOrder: Number.MAX_SAFE_INTEGER,
   })
 })
 
@@ -68,11 +69,12 @@ test('applies curated metadata without losing entry identity', () => {
 test('keeps an artwork in the selected collection when featured is true', () => {
   const entry = normaliseEntry(
     { name: 'CardsArt.JPG', relativePath: 'cards-art.jpg' },
-    { featured: true },
+    { featured: true, featuredOrder: 3 },
     'artwork',
   )
 
   assert.equal(entry.featured, true)
+  assert.equal(entry.featuredOrder, 3)
 })
 
 test('keeps unmarked artwork in the full exhibition only', () => {

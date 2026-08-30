@@ -20,6 +20,20 @@ test('keeps only featured artwork in the selected room', () => {
   )
 })
 
+test('uses featured order without changing archive order', () => {
+  const ordered = featuredArtworks([
+    { id: 'cards-art', featured: true, featuredOrder: 3 },
+    { id: 'moonknight-art', featured: true, featuredOrder: 2 },
+    { id: 'spiderverse-art', featured: true, featuredOrder: 1 },
+  ])
+
+  assert.deepEqual(ordered.map((artwork) => artwork.id), [
+    'spiderverse-art',
+    'moonknight-art',
+    'cards-art',
+  ])
+})
+
 test('maps a selected artwork back to its room position', () => {
   assert.equal(indexForArtwork(featuredArtworks(artworks), 'paris-art'), 1)
   assert.equal(indexForArtwork(featuredArtworks(artworks), 'goku-progress-art'), -1)
