@@ -1,5 +1,21 @@
 {
   "artworks": {
+    "JokerArt.png": {
+      "title": "Joker",
+      "medium": "Digital illustration",
+      "alt": "The Joker with green hair and a red grin, with Batman reflected in broken mirror shards and purple Why so serious lettering",
+      "order": 25,
+      "featured": true,
+      "featuredOrder": -1
+    },
+    "HeartArt.png": {
+      "title": "Heart",
+      "medium": "Digital illustration",
+      "alt": "An anatomical heart dissolving into vivid multicoloured marks on black, beside the words If I let the colours out, they'd make a beautiful mess",
+      "order": 26,
+      "featured": true,
+      "featuredOrder": 0
+    },
     "CardsArt.JPG": {
       "title": "Dealer's Dilemma",
       "date": "2024",

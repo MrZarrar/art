@@ -714,6 +714,72 @@ export const artworks = [
         "width": 3200
       }
     ]
+  },
+  {
+    "id": "joker-art",
+    "kind": "artwork",
+    "title": "Joker",
+    "date": "Undated",
+    "medium": "Digital illustration",
+    "alt": "The Joker with green hair and a red grin, with Batman reflected in broken mirror shards and purple Why so serious lettering",
+    "order": 25,
+    "featured": true,
+    "featuredOrder": -1,
+    "width": 4961,
+    "height": 3508,
+    "src": "media/artworks/joker-art-1200.webp",
+    "inspectionSrc": "media/artworks/joker-art-3200.webp",
+    "sources": [
+      {
+        "src": "media/artworks/joker-art-640.webp",
+        "width": 640
+      },
+      {
+        "src": "media/artworks/joker-art-1200.webp",
+        "width": 1200
+      },
+      {
+        "src": "media/artworks/joker-art-2000.webp",
+        "width": 2000
+      },
+      {
+        "src": "media/artworks/joker-art-3200.webp",
+        "width": 3200
+      }
+    ]
+  },
+  {
+    "id": "heart-art",
+    "kind": "artwork",
+    "title": "Heart",
+    "date": "Undated",
+    "medium": "Digital illustration",
+    "alt": "An anatomical heart dissolving into vivid multicoloured marks on black, beside the words If I let the colours out, they'd make a beautiful mess",
+    "order": 26,
+    "featured": true,
+    "featuredOrder": 0,
+    "width": 3508,
+    "height": 4961,
+    "src": "media/artworks/heart-art-1200.webp",
+    "inspectionSrc": "media/artworks/heart-art-3200.webp",
+    "sources": [
+      {
+        "src": "media/artworks/heart-art-640.webp",
+        "width": 640
+      },
+      {
+        "src": "media/artworks/heart-art-1200.webp",
+        "width": 1200
+      },
+      {
+        "src": "media/artworks/heart-art-2000.webp",
+        "width": 2000
+      },
+      {
+        "src": "media/artworks/heart-art-3200.webp",
+        "width": 3200
+      }
+    ]
   }
 ]
 
