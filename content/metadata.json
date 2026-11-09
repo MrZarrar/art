@@ -1,7 +1,7 @@
 {
   "artworks": {
     "JokerArt.png": {
-      "title": "Joker",
+      "title": "Punchline",
       "medium": "Digital illustration",
       "alt": "The Joker with green hair and a red grin, with Batman reflected in broken mirror shards and purple Why so serious lettering",
       "order": 25,
@@ -9,7 +9,7 @@
       "featuredOrder": -1
     },
     "HeartArt.png": {
-      "title": "Heart",
+      "title": "Containment",
       "medium": "Digital illustration",
       "alt": "An anatomical heart dissolving into vivid multicoloured marks on black, beside the words If I let the colours out, they'd make a beautiful mess",
       "order": 26,
@@ -64,7 +64,7 @@
       "medium": "Digital painting",
       "alt": "A cloaked figure looking through a glowing keyhole into a cosmic scene",
       "order": 7,
-      "featured": true,
+      "featured": false,
       "featuredOrder": 6
     },
     "RHULArt.PNG": {
@@ -92,7 +92,7 @@
       "medium": "Digital illustration",
       "alt": "Batman standing against a deep blue night sky",
       "order": 11,
-      "featured": true,
+      "featured": false,
       "featuredOrder": 7
     },
     "EvilQueenArt.jpg": {
@@ -121,7 +121,7 @@
       "medium": "Digital portrait",
       "alt": "Formal wedding portrait against a vivid blue and magenta background",
       "order": 15,
-      "featured": true,
+      "featured": false,
       "featuredOrder": 8
     },
     "LakeArt.jpg": {
