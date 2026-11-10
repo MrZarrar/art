@@ -117,6 +117,7 @@ export function createGalleryController({
   }
 
   function settleToNearest() {
+    if (pointerStart) return
     const index = nearestIndexFromRail()
     rail.classList.remove('is-dragging')
     state.select(index)
@@ -175,6 +176,9 @@ export function createGalleryController({
   }
 
   rail.addEventListener('wheel', handleWheel, { capture: true, passive: false })
+
+  // Native image dragging cancels the pointer gesture used to scroll the rail.
+  rail.addEventListener('dragstart', (event) => event.preventDefault())
 
   rail.addEventListener('pointerdown', (event) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return
